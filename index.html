@@ -1,121 +1,106 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Scheduling — Rhino Service</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#f0efeb;--white:#fff;--border:#dddcd5;--text:#18181a;--muted:#6b6a65;--faint:#aaa9a3;
   --green:#1D9E75;--green-d:#0f6e56;--green-l:#e1f5ee;--green-m:#9fd8c4;
   --red:#e24b4a;--red-l:#fcebeb;--amber:#BA7517;--amber-l:#faeeda;
-  --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
 }
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;min-height:100vh}
-
-/* HEADER */
-.hdr{background:#18181a;color:#fff;height:54px;padding:0 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
-.hdr-logo{width:30px;height:30px;background:var(--green);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;flex-shrink:0}
-.hdr-title{font-size:14px;font-weight:600}
-.hdr-sub{font-size:12px;color:#777;margin-left:3px}
-.hdr-sync{margin-left:auto;display:flex;align-items:center;gap:6px;font-size:11px;color:#888}
-.sdot{width:6px;height:6px;border-radius:50%;background:#666;transition:background .3s}
+.hdr{background:#18181a;color:#fff;height:56px;padding:0 22px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
+.hdr-logo{width:32px;height:32px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;letter-spacing:-0.5px}
+.hdr-title{font-size:15px;font-weight:600}
+.hdr-sub{font-size:12px;color:#888;margin-left:4px}
+.hdr-sync{margin-left:auto;display:flex;align-items:center;gap:7px;font-size:12px;color:#888}
+.sdot{width:7px;height:7px;border-radius:50%;background:#555;transition:background .3s;flex-shrink:0}
 .sdot.live{background:#4caf50;animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* LAYOUT */
-.wrap{display:grid;grid-template-columns:350px 1fr;gap:14px;padding:14px;max-width:1380px;margin:0 auto}
-@media(max-width:820px){.wrap{grid-template-columns:1fr}}
-.lcol,.rcol{display:flex;flex-direction:column;gap:14px}
-
-/* CARDS */
-.card{background:var(--white);border-radius:11px;border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
-.card-hdr{padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px}
-.card-ico{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
-.card-hdr h2{font-size:13px;font-weight:600;flex:1}
-.card-body{padding:16px}
-.dbadge{font-size:10px;padding:2px 7px;border-radius:8px}
+.wrap{display:grid;grid-template-columns:370px 1fr;gap:16px;padding:16px;max-width:1400px;margin:0 auto}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+.lcol,.rcol{display:flex;flex-direction:column;gap:16px}
+.card{background:var(--white);border-radius:12px;border:1px solid var(--border);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.card-hdr{padding:14px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.card-ico{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.card-hdr h2{font-size:14px;font-weight:600;flex:1}
+.card-body{padding:18px}
+.dbadge{font-size:11px;padding:2px 9px;border-radius:8px;font-weight:500}
 .dbadge.live{background:var(--green-l);color:var(--green-d)}
 .dbadge.demo{background:#fff8e1;color:#854F0B}
-
-/* FORM */
-.fr{margin-bottom:13px}
-.fr label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
-.fr input,.fr select{width:100%;padding:8px 11px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .15s}
+.fr{margin-bottom:15px}
+.fr label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.fr input,.fr select{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white);outline:none;transition:border-color .15s}
 .fr input:focus,.fr select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(29,158,117,.1)}
-.fr .hint{font-size:11px;color:var(--faint);margin-top:3px}
-.fr .zone-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:7px;margin-top:5px}
-.zone-badge.serve{background:var(--green-l);color:var(--green-d)}
-.zone-badge.no-serve{background:var(--red-l);color:#a32d2d}
-.zone-badge.maybe{background:var(--amber-l);color:#633806}
-.zone-badge.unknown{background:var(--bg);color:var(--muted)}
-
-.btn{width:100%;padding:10px;background:var(--green);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .15s}
+.fr .hint{font-size:11px;color:var(--faint);margin-top:4px}
+.zbadge{margin-top:6px;display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:4px 10px;border-radius:7px}
+.zbadge.serve{background:var(--green-l);color:var(--green-d)}
+.zbadge.no{background:var(--red-l);color:#a32d2d}
+.zbadge.maybe{background:var(--amber-l);color:#633806}
+.zbadge.unknown{background:var(--bg);color:var(--muted)}
+.btn{width:100%;padding:11px;background:var(--green);color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .15s}
 .btn:hover{background:var(--green-d)}
 .btn:disabled{background:var(--green-m);cursor:not-allowed}
-
-/* STATUS */
-.st{padding:9px 13px;border-radius:8px;font-size:12px;margin-bottom:12px;display:none;align-items:center;gap:7px}
+.st{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:13px;display:none;align-items:center;gap:8px}
 .st.show{display:flex}
 .st.load{background:#ebf3ff;color:#1558d6;border:1px solid #c5dafc}
 .st.err{background:var(--red-l);color:#c62828;border:1px solid #f5a8a4}
+.st.warn{background:var(--amber-l);color:#633806;border:1px solid #f5c97a}
 .st.ok{background:var(--green-l);color:var(--green-d);border:1px solid var(--green-m)}
-.spin{width:13px;height:13px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+.spin{width:14px;height:14px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* TECH LIST */
-.tech-list{display:flex;flex-direction:column;gap:8px}
-.titem{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;border:1.5px solid var(--border)}
-.tav{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.tech-list{display:flex;flex-direction:column;gap:9px}
+.titem{display:flex;align-items:center;gap:10px;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border)}
+.tav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;flex-shrink:0}
 .tinfo{flex:1;min-width:0}
 .tname{font-size:13px;font-weight:500}
-.thome{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.thours{font-size:10px;color:var(--faint);margin-top:1px}
-
-/* RESULTS */
-.empty{text-align:center;padding:44px 20px;color:var(--faint)}
-.empty .ico{font-size:32px;margin-bottom:10px;opacity:.4}
-.empty p{font-size:13px;line-height:1.6}
-.slots{display:flex;flex-direction:column;gap:9px}
-.slot{border:1.5px solid var(--border);border-radius:10px;padding:12px 14px;position:relative;transition:border-color .15s}
+.thome{font-size:11px;color:var(--muted)}
+.thours{font-size:11px;color:var(--faint);margin-top:1px}
+.empty{text-align:center;padding:48px 24px;color:var(--faint)}
+.empty .eico{font-size:36px;margin-bottom:12px;opacity:.3}
+.empty p{font-size:14px;line-height:1.6}
+.slots{display:flex;flex-direction:column;gap:10px}
+.slot{border:1.5px solid var(--border);border-radius:11px;padding:14px 16px;position:relative;transition:border-color .15s}
 .slot.top{border-color:var(--green);background:var(--green-l)}
 .slot:not(.top):hover{border-color:var(--green);background:#fafaf8}
-.best-badge{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:8px;background:var(--green);color:#fff;text-transform:uppercase;letter-spacing:.5px}
-.slot-row1{display:flex;align-items:center;gap:7px;margin-bottom:4px}
-.tdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.tname2{font-size:13px;font-weight:600}
-.slot-date{font-size:13px;font-weight:500}
-.slot-time{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:5px}
+.best-badge{position:absolute;top:12px;right:12px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;background:var(--green);color:#fff;text-transform:uppercase;letter-spacing:.5px}
+.slot-r1{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.tdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.tname2{font-size:14px;font-weight:600}
+.slot-date{font-size:14px;font-weight:500;margin-bottom:3px}
+.slot-time{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:6px}
 .slot-meta{display:flex;gap:8px;flex-wrap:wrap}
-.sbadge{font-size:11px;padding:2px 7px;border-radius:5px;background:var(--bg);color:var(--muted)}
-.cbtn{display:block;width:100%;margin-top:9px;padding:6px;background:var(--text);color:#fff;border:none;border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:background .15s}
+.sbadge{font-size:12px;padding:2px 8px;border-radius:6px;background:var(--bg);color:var(--muted)}
+.cbtn{display:block;width:100%;margin-top:10px;padding:8px;background:var(--text);color:#fff;border:none;border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;transition:background .15s}
 .cbtn:hover{background:#333}
-.cbtn.ok{background:var(--green)}
-
-/* SCHEDULE GRID */
-.wlbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);margin:14px 0 7px}
+.cbtn.copied{background:var(--green)}
+.wlbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);margin:16px 0 8px}
 .wlbl:first-child{margin-top:0}
-.sgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.sgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-bottom:6px}
 .dcol{min-width:0}
-.dhdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;text-align:center;color:var(--faint);margin-bottom:3px}
+.dhdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;text-align:center;color:var(--faint);margin-bottom:4px}
 .dhdr.th{color:var(--green)}
-.dnum{font-size:13px;font-weight:600;text-align:center;padding:3px;border-radius:5px;margin-bottom:4px;color:var(--muted)}
+.dnum{font-size:13px;font-weight:600;text-align:center;padding:4px;border-radius:6px;margin-bottom:5px;color:var(--muted)}
 .dnum.tn{background:var(--green);color:#fff}
-.jchip{border-radius:4px;padding:3px 6px;font-size:11px;line-height:1.3;margin-bottom:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.offchip{border-radius:4px;padding:3px 6px;font-size:11px;background:var(--bg);color:var(--faint);text-align:center;margin-bottom:2px}
-.freechip{border-radius:4px;padding:3px 6px;font-size:11px;border:1px dashed var(--green-m);color:var(--green);text-align:center;margin-bottom:2px}
-
-/* CONFIG */
+.jchip{border-radius:5px;padding:3px 6px;font-size:11px;line-height:1.35;margin-bottom:3px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:default}
+.offchip{border-radius:5px;padding:3px 6px;font-size:11px;background:var(--bg);color:var(--faint);text-align:center;margin-bottom:3px}
+.freechip{border-radius:5px;padding:3px 6px;font-size:11px;border:1px dashed var(--green-m);color:var(--green);text-align:center;margin-bottom:3px}
+.leg{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.leg-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.leg-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0}
 details.cfg{border-top:1px solid var(--border)}
-details.cfg summary{padding:10px 16px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;text-transform:uppercase;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:5px}
+details.cfg summary{padding:12px 18px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;text-transform:uppercase;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:6px;user-select:none}
 details.cfg summary::-webkit-details-marker{display:none}
-details.cfg .inner{padding:0 16px 14px}
-details.cfg input{width:100%;padding:6px 9px;border:1.5px solid var(--border);border-radius:7px;font-size:11px;font-family:'DM Mono',monospace;color:var(--text);background:var(--white);outline:none;margin-top:5px}
+details.cfg .inner{padding:0 18px 16px}
+details.cfg input{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;font-family:'DM Mono',monospace;color:var(--text);background:var(--white);outline:none;margin-top:6px}
 details.cfg input:focus{border-color:var(--green)}
-details.cfg .hint2{font-size:11px;color:var(--faint);margin-top:5px;line-height:1.55}
-details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color:#fff;border:none;border-radius:7px;font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500}
+details.cfg .cfg-hint{font-size:12px;color:var(--faint);margin-top:6px;line-height:1.55}
+details.cfg .cfg-btn{margin-top:10px;padding:8px 16px;background:var(--green);color:#fff;border:none;border-radius:7px;font-size:13px;font-family:'DM Sans',sans-serif;cursor:pointer;font-weight:500}
+details.cfg .cfg-btn:hover{background:var(--green-d)}
 </style>
 </head>
 <body>
@@ -137,7 +122,7 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
 
   <div class="card">
     <div class="card-hdr">
-      <div class="card-ico" style="background:#ebf3ff">&#128205;</div>
+      <div class="card-ico" style="background:#e6f1fb">&#128205;</div>
       <h2>New client</h2>
       <span class="dbadge demo" id="dbadge">demo</span>
     </div>
@@ -149,8 +134,10 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
       </div>
       <div class="fr">
         <label>Address or ZIP</label>
-        <input id="caddr" placeholder="e.g. 60614 or 340 W Fullerton, Chicago" oninput="checkZip(this.value)" onkeydown="if(event.key==='Enter')go()">
-        <div id="zbadge"></div>
+        <input id="caddr" placeholder="e.g. 60614 or 340 W Fullerton, Chicago"
+          oninput="onAddrInput(this.value)"
+          onkeydown="if(event.key==='Enter')go()">
+        <div id="zbadge-wrap"></div>
         <div class="hint">Enter ZIP code or full address in Illinois</div>
       </div>
       <div class="fr">
@@ -171,17 +158,17 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
           <option value="3">Next 3 days</option>
         </select>
       </div>
-      <button class="btn" id="goBtn" onclick="go()">&#128269; Find available slots</button>
+      <button class="btn" id="goBtn" onclick="go()">Search available slots</button>
     </div>
-    <details class="cfg" id="cfgSection">
+    <details class="cfg">
       <summary>&#9881; Connect to Work Orders sheet</summary>
       <div class="inner">
         <input id="surl" placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv&gid=0">
-        <div class="hint2">
+        <div class="cfg-hint">
           Paste the public CSV URL from your Zapier Google Sheet.<br>
-          Required columns: <b>wo_id · date · tech_id · start · end · client · address · lat · lng</b>
+          Columns needed: <b>wo_id &middot; date &middot; tech_id &middot; start &middot; end &middot; client &middot; address &middot; lat &middot; lng</b>
         </div>
-        <button class="cbtn2" onclick="connectSheet()">&#128279; Connect &amp; Sync</button>
+        <button class="cfg-btn" onclick="connectSheet()">Connect &amp; Sync</button>
       </div>
     </details>
   </div>
@@ -202,10 +189,13 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
   <div class="card">
     <div class="card-hdr">
       <div class="card-ico" style="background:#fff8e1">&#9889;</div>
-      <h2>Recommendations <span id="rcnt" style="font-size:11px;font-weight:400;color:var(--faint)"></span></h2>
+      <h2>Recommendations <span id="rcnt" style="font-size:12px;font-weight:400;color:var(--faint)"></span></h2>
     </div>
     <div class="card-body" id="rBody">
-      <div class="empty"><div class="ico">&#128467;</div><p>Enter a client address above<br>to see available slots</p></div>
+      <div class="empty">
+        <div class="eico">&#128467;</div>
+        <p>Enter a client address above<br>to see available slots</p>
+      </div>
     </div>
   </div>
 
@@ -221,148 +211,133 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
 </div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 // TECHNICIAN DATA
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 const TECH = {
-  bohdan:    {name:'Bohdan Topilnytskyi', init:'BT', color:'#1D9E75', bg:'#e1f5ee', home:{lat:42.0041,lng:-87.8506,label:'Elk Grove Village'}, defStart:8,  defEnd:19, maxJobs:99},
-  max:       {name:'Max Moldavan',        init:'MM', color:'#D85A30', bg:'#faece7', home:{lat:41.9287,lng:-87.8373,label:'River Grove'},       defStart:8,  defEnd:19, maxJobs:99},
-  vviv:      {name:'Volodymyr Vivcharchyn',init:'VV',color:'#3B6D11', bg:'#eaf3de', home:{lat:41.9342,lng:-87.7295,label:'Chicago'},            defStart:8,  defEnd:19, maxJobs:99},
-  vitalii:   {name:'Vitalii Senyk',       init:'VS', color:'#BA7517', bg:'#faeeda', home:{lat:42.2219,lng:-87.9612,label:'Vernon Hills'},       defStart:14, defEnd:19, maxJobs:3},
-  vtsuper:   {name:'Volodymyr Tsuper',    init:'VT', color:'#993556', bg:'#fbeaf0', home:{lat:41.9892,lng:-87.7895,label:'Chicago'},            defStart:8,  defEnd:19, maxJobs:99},
-  vladyslav: {name:'Vladyslav Kasiian',   init:'VK', color:'#185FA5', bg:'#e6f1fb', home:{lat:42.0122,lng:-87.8836,label:'Des Plaines'},        defStart:8,  defEnd:17, maxJobs:99},
-  eugene:    {name:'Eugene Stroganoff',   init:'ES', color:'#534AB7', bg:'#eeedfe', home:{lat:42.1934,lng:-88.0745,label:'Lake Zurich'},         defStart:10, defEnd:18, maxJobs:99},
+  bohdan:    {name:'Bohdan Topilnytskyi',   init:'BT', color:'#1D9E75', bg:'#e1f5ee', home:{lat:42.0041,lng:-87.8506,label:'Elk Grove Village'}, defStart:8,  defEnd:19, maxJobs:99},
+  max:       {name:'Max Moldavan',          init:'MM', color:'#D85A30', bg:'#faece7', home:{lat:41.9287,lng:-87.8373,label:'River Grove'},        defStart:8,  defEnd:19, maxJobs:99},
+  vviv:      {name:'Volodymyr Vivcharchyn', init:'VV', color:'#3B6D11', bg:'#eaf3de', home:{lat:41.9342,lng:-87.7295,label:'Chicago'},             defStart:8,  defEnd:19, maxJobs:99},
+  vitalii:   {name:'Vitalii Senyk',         init:'VS', color:'#BA7517', bg:'#faeeda', home:{lat:42.2219,lng:-87.9612,label:'Vernon Hills'},        defStart:14, defEnd:19, maxJobs:3},
+  vtsuper:   {name:'Volodymyr Tsuper',      init:'VT', color:'#993556', bg:'#fbeaf0', home:{lat:41.9892,lng:-87.7895,label:'Chicago'},             defStart:8,  defEnd:19, maxJobs:99},
+  vladyslav: {name:'Vladyslav Kasiian',     init:'VK', color:'#185FA5', bg:'#e6f1fb', home:{lat:42.0122,lng:-87.8836,label:'Des Plaines'},         defStart:8,  defEnd:17, maxJobs:99},
+  eugene:    {name:'Eugene Stroganoff',     init:'ES', color:'#534AB7', bg:'#eeedfe', home:{lat:42.1934,lng:-88.0745,label:'Lake Zurich'},          defStart:10, defEnd:18, maxJobs:99},
 };
 const TECH_IDS = Object.keys(TECH);
 
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 // ZIP ZONES
-// ═══════════════════════════════════════════════════════════════
-const ZIP_SERVE   = new Set([60004,60005,60007,60008,60010,60012,60013,60014,60015,60016,60018,60021,60022,60025,60026,60029,60035,60043,60044,60045,60047,60048,60053,60056,60060,60061,60062,60067,60068,60069,60070,60076,60077,60089,60090,60091,60093,60101,60102,60103,60106,60107,60108,60118,60120,60123,60124,60126,60130,60131,60133,60134,60137,60139,60142,60143,60148,60154,60156,60157,60160,60162,60163,60164,60165,60169,60171,60172,60173,60174,60175,60176,60177,60181,60184,60185,60187,60188,60189,60190,60191,60192,60193,60194,60195,60201,60202,60203,60301,60302,60304,60305,60490,60510,60513,60515,60516,60517,60521,60523,60525,60526,60532,60540,60546,60555,60558,60559,60561,60563,60564,60565,60601,60602,60603,60604,60605,60606,60607,60608,60609,60610,60611,60613,60614,60615,60616,60618,60622,60625,60626,60630,60631,60634,60640,60641,60645,60646,60647,60653,60654,60656,60657,60659,60660,60661,60706,60707,60712,60714]);
-const ZIP_NO      = new Set([60432,60433,60435,60453,60455,60456,60459,60501,60612,60620,60621,60623,60624,60629,60632,60636,60652]);
-const ZIP_MAYBE   = new Set([60153,60155,60402,60439,60440,60441,60446,60451,60462,60463,60464,60465,60482,60491,60534,60637,60638,60639,60644,60804,60805]);
+// ================================================================
+const ZIP_SERVE = new Set([60004,60005,60007,60008,60010,60012,60013,60014,60015,60016,60018,60021,60022,60025,60026,60029,60035,60043,60044,60045,60047,60048,60053,60056,60060,60061,60062,60067,60068,60069,60070,60076,60077,60089,60090,60091,60093,60101,60102,60103,60106,60107,60108,60118,60120,60123,60124,60126,60130,60131,60133,60134,60137,60139,60142,60143,60148,60154,60156,60157,60160,60162,60163,60164,60165,60169,60171,60172,60173,60174,60175,60176,60177,60181,60184,60185,60187,60188,60189,60190,60191,60192,60193,60194,60195,60201,60202,60203,60301,60302,60304,60305,60490,60510,60513,60515,60516,60517,60521,60523,60525,60526,60532,60540,60546,60555,60558,60559,60561,60563,60564,60565,60601,60602,60603,60604,60605,60606,60607,60608,60609,60610,60611,60613,60614,60615,60616,60618,60622,60625,60626,60630,60631,60634,60640,60641,60645,60646,60647,60653,60654,60656,60657,60659,60660,60661,60706,60707,60712,60714]);
+const ZIP_NO   = new Set([60432,60433,60435,60453,60455,60456,60459,60501,60612,60620,60621,60623,60624,60629,60632,60636,60652]);
+const ZIP_MAYBE= new Set([60153,60155,60402,60439,60440,60441,60446,60451,60462,60463,60464,60465,60482,60491,60534,60637,60638,60639,60644,60804,60805]);
 
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 // CONSTANTS & STATE
-// ═══════════════════════════════════════════════════════════════
-const AVAIL_URL = 'https://docs.google.com/spreadsheets/d/1fPhNqzAGEENGUa3XWbOxKsVGSTvcfq80v32JTlHUYbs/export?format=csv&gid=581597291';
-const MPH = 25;
-const AVAIL_CACHE_KEY = 'rh_avail_v1';
-const AVAIL_CACHE_TTL = 3600000; // 1 hour
+// ================================================================
+const AVAIL_URL  = 'https://docs.google.com/spreadsheets/d/1fPhNqzAGEENGUa3XWbOxKsVGSTvcfq80v32JTlHUYbs/export?format=csv&gid=581597291';
+const CACHE_KEY  = 'rh_avail_v2';
+const CACHE_TTL  = 3600000;
+const MPH        = 25;
 
-let availData = {}; // { 'YYYY-MM-DD': { techId: {start:H, end:H} | null } }
-let woData    = {}; // { 'YYYY-MM-DD': { techId: [{s,e,t,lat,lng}] } }
+let availData = {};
+let woData    = {};
 let isLive    = false;
 let lastSync  = null;
 
-// ═══════════════════════════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════════════════════════
-const toMin = t => { const [h,m] = t.split(':').map(Number); return h*60+(m||0); };
-const toTime = m => {
-    const h = Math.floor(m/60), mn = m%60;
-    const ampm = h >= 12 ? 'pm' : 'am';
-    const h12 = h % 12 || 12;
-    return mn === 0 ? `${h12}${ampm}` : `${h12}:${String(mn).padStart(2,'0')}${ampm}`;
-  };
-const dStr   = d => d.toISOString().split('T')[0];
-const addDays= (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
-const fmtDate= d => d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-const dayName= d => ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()];
+// ================================================================
+// TIME UTILITIES
+// ================================================================
+function toMin(t) {
+  const parts = t.replace(/[apm]/gi,'').split(':');
+  let h = parseInt(parts[0]), m = parseInt(parts[1]||0);
+  const lower = t.toLowerCase();
+  if (lower.includes('pm') && h !== 12) h += 12;
+  if (lower.includes('am') && h === 12) h = 0;
+  return h * 60 + m;
+}
 
-function hav(la1,ln1,la2,ln2) {
-  const R=3959,r=Math.PI/180,dla=(la2-la1)*r,dln=(ln2-ln1)*r;
-  const a=Math.sin(dla/2)**2+Math.cos(la1*r)*Math.cos(la2*r)*Math.sin(dln/2)**2;
-  return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+function toTime(totalMin) {
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  const ampm = h >= 12 ? 'pm' : 'am';
+  const h12  = h % 12 || 12;
+  return m === 0 ? h12 + ampm : h12 + ':' + String(m).padStart(2,'0') + ampm;
 }
 
 function parseHours(str) {
-  if (!str || /^off$/i.test(str.trim()) || str.trim() === '') return null;
-  const s = str.toLowerCase().replace(/\s/g,'');
-  const m = s.match(/(\d+)(am|pm)?[-–](\d+)(am|pm)/);
+  if (!str) return null;
+  const s = str.trim();
+  if (!s || /^off$/i.test(s)) return null;
+  const clean = s.toLowerCase().replace(/\s/g,'');
+  const m = clean.match(/(\d+)(am|pm)?[-\u2013](\d+)(am|pm)/);
   if (!m) return null;
-  const toH = (n,ap) => { n=parseInt(n); if(ap==='pm'&&n!==12)n+=12; if(ap==='am'&&n===12)n=0; return n; };
-  const endAP = m[4];
+  const toH = (n, ap) => {
+    n = parseInt(n);
+    if (ap === 'pm' && n !== 12) n += 12;
+    if (ap === 'am' && n === 12) n = 0;
+    return n;
+  };
+  const endAP   = m[4];
   const startAP = m[2] || endAP;
   return { start: toH(m[1], startAP), end: toH(m[3], endAP) };
 }
 
 function parseSheetDate(str) {
-  // "04.01" → "2026-04-01"  or "04/01" or "4/1"
-  const clean = str.trim().replace(/\//g,'.');
-  const parts = clean.split('.');
-  if (parts.length !== 2) return null;
-  const mo = parts[0].padStart(2,'0'), dy = parts[1].padStart(2,'0');
+  const s = str.trim().replace(/\//g, '.');
+  const p = s.split('.');
+  if (p.length !== 2) return null;
+  const mo = p[0].padStart(2,'0'), dy = p[1].padStart(2,'0');
   const now = new Date();
   let yr = now.getFullYear();
-  const d = new Date(`${yr}-${mo}-${dy}`);
-  if (isNaN(d)) return null;
-  // If date is more than 2 months in the past, assume next year
-  if (d < new Date(now - 60*24*3600*1000)) yr++;
-  return `${yr}-${mo}-${dy}`;
+  const d = new Date(yr + '-' + mo + '-' + dy);
+  if (isNaN(d.getTime())) return null;
+  if (d < new Date(now.getTime() - 45*24*3600*1000)) yr++;
+  return yr + '-' + mo + '-' + dy;
 }
 
+// ================================================================
+// CSV PARSER
+// ================================================================
 function parseCSVLine(line) {
-  const r=[], re=/("(?:[^"]|"")*"|[^,]*)(,|$)/g;
-  let m;
-  while ((m=re.exec(line)) !== null) {
-    let v = m[1]; if (v.startsWith('"')) v=v.slice(1,-1).replace(/""/g,'"');
-    r.push(v.trim());
-    if (!m[2]) break;
+  const result = [];
+  let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (ch === '"') { inQ = !inQ; continue; }
+    if (ch === ',' && !inQ) { result.push(cur.trim()); cur = ''; continue; }
+    cur += ch;
   }
-  return r;
+  result.push(cur.trim());
+  return result;
 }
 
-// ═══════════════════════════════════════════════════════════════
-// ZIP ZONE CHECK
-// ═══════════════════════════════════════════════════════════════
-function getZone(input) {
-  const zip = parseInt(input.trim().replace(/\D/g,'').slice(0,5));
-  if (!zip || zip < 10000) return null;
-  if (ZIP_NO.has(zip))    return {zone:'no',    zip};
-  if (ZIP_SERVE.has(zip)) return {zone:'serve',  zip};
-  if (ZIP_MAYBE.has(zip)) return {zone:'maybe',  zip};
-  return {zone:'unknown', zip};
-}
-
-function checkZip(val) {
-  const zb = document.getElementById('zbadge');
-  const zip5 = val.trim().replace(/\D/g,'').slice(0,5);
-  if (zip5.length < 5) { zb.innerHTML=''; return; }
-  const r = getZone(zip5);
-  if (!r) { zb.innerHTML=''; return; }
-  const labels = {
-    serve:   ['&#9989; We serve this area', 'serve'],
-    no:      ['&#10060; Outside service area', 'no-serve'],
-    maybe:   ['&#9888; Ask team leader', 'maybe'],
-    unknown: ['&#10067; Unknown — verify with team', 'unknown'],
-  };
-  const [txt,cls] = labels[r.zone] || labels.unknown;
-  zb.innerHTML = `<span class="zone-badge ${cls}">${txt}</span>`;
-}
-
-// ═══════════════════════════════════════════════════════════════
-// AVAILABILITY SHEET LOADER
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
+// AVAILABILITY SHEET
+// ================================================================
 async function loadAvailability() {
-  // Try cache first
   try {
-    const cached = JSON.parse(localStorage.getItem(AVAIL_CACHE_KEY)||'{}');
-    if (cached.ts && Date.now()-cached.ts < AVAIL_CACHE_TTL && cached.data) {
+    const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || '{}');
+    if (cached.ts && (Date.now() - cached.ts) < CACHE_TTL && cached.data && Object.keys(cached.data).length > 0) {
       availData = cached.data;
       return true;
     }
-  } catch {}
+  } catch(e) {}
 
   try {
-    const r = await fetch(AVAIL_URL, {cache:'no-cache'});
-    if (!r.ok) throw new Error('HTTP '+r.status);
+    const r = await fetch(AVAIL_URL + '&t=' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
     const text = await r.text();
-    availData = parseAvailSheet(text);
-    localStorage.setItem(AVAIL_CACHE_KEY, JSON.stringify({ts:Date.now(), data:availData}));
-    return true;
-  } catch (e) {
-    console.warn('Availability sheet fetch failed:', e.message);
+    if (!text || text.length < 50) throw new Error('Empty response');
+    const parsed = parseAvailSheet(text);
+    if (Object.keys(parsed).length > 0) {
+      availData = parsed;
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ts: Date.now(), data: availData})); } catch(e) {}
+      return true;
+    }
+    return false;
+  } catch(e) {
+    console.warn('Avail sheet error:', e.message);
     return false;
   }
 }
@@ -370,10 +345,11 @@ async function loadAvailability() {
 function parseAvailSheet(text) {
   const lines = text.trim().split(/\r?\n/);
   if (lines.length < 2) return {};
+
   const headers = parseCSVLine(lines[0]);
 
-  // Map header index → tech id
-  const techMap = {
+  // Map tech names to column indices
+  const patterns = {
     bohdan:    /bogdan|topilnyt/i,
     max:       /^max$|moldavan/i,
     vviv:      /vivcharch/i,
@@ -382,74 +358,83 @@ function parseAvailSheet(text) {
     vladyslav: /vladyslav/i,
     eugene:    /eugene|stroganoff/i,
   };
-  const colMap = {}; // techId → col index
-  headers.forEach((h,i) => {
-    for (const [tid,rx] of Object.entries(techMap)) {
-      if (!colMap[tid] && rx.test(h)) colMap[tid] = i;
+  const colMap = {};
+  headers.forEach((h, i) => {
+    for (const [tid, rx] of Object.entries(patterns)) {
+      if (!colMap[tid] && rx.test(h.trim())) colMap[tid] = i;
     }
   });
 
   const result = {};
-  for (let i=1; i<lines.length; i++) {
+
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
     const cols = parseCSVLine(lines[i]);
-    // Find date cell
+
+    // Find date cell in first 3 columns
     let dateStr = null;
-    for (let j=0; j<Math.min(3,cols.length); j++) {
-      if (/^\d{1,2}[./]\d{1,2}$/.test(cols[j].trim())) { dateStr=cols[j]; break; }
+    for (let j = 0; j < Math.min(3, cols.length); j++) {
+      if (/^\d{1,2}[./]\d{1,2}$/.test(cols[j].trim())) {
+        dateStr = cols[j].trim();
+        break;
+      }
     }
     if (!dateStr) continue;
+
     const fullDate = parseSheetDate(dateStr);
     if (!fullDate) continue;
 
     result[fullDate] = {};
-    for (const [tid,ci] of Object.entries(colMap)) {
-      // If the mapped column is empty, scan forward up to 5 columns
-      let val = cols[ci] || '';
-      if (!val.trim()) {
-        for (let k=ci+1; k<=ci+5; k++) {
-          if (cols[k] && cols[k].trim()) { val=cols[k]; break; }
-        }
+
+    for (const [tid, ci] of Object.entries(colMap)) {
+      // Try the mapped column and up to 5 columns forward (handles merged cells)
+      let val = '';
+      for (let k = ci; k <= ci + 5 && k < cols.length; k++) {
+        const v = (cols[k] || '').trim();
+        if (v) { val = v; break; }
       }
-      result[fullDate][tid] = parseHours(val); // null = OFF
+      result[fullDate][tid] = parseHours(val);
     }
   }
   return result;
 }
 
-// ═══════════════════════════════════════════════════════════════
-// WORK ORDER SHEET LOADER (from Zapier)
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
+// WORK ORDER SHEET (from Zapier)
+// ================================================================
 async function loadWOs(url) {
-  const r = await fetch(url, {cache:'no-cache'});
-  if (!r.ok) throw new Error('HTTP '+r.status);
+  const r = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now());
+  if (!r.ok) throw new Error('HTTP ' + r.status);
   const text = await r.text();
+  if (!text || text.length < 10) throw new Error('Empty response');
   return parseWOSheet(text);
 }
 
 function parseWOSheet(text) {
   const lines = text.trim().split(/\r?\n/);
   if (lines.length < 2) return {};
-  const headers = parseCSVLine(lines[0]).map(h=>h.toLowerCase());
+  const headers = parseCSVLine(lines[0]).map(h => h.toLowerCase().trim());
   const ci = k => headers.indexOf(k);
-  const iDate=ci('date'), iTech=ci('tech_id'), iStart=ci('start'),
-        iEnd=ci('end'), iClient=ci('client'), iAddr=ci('address'),
-        iLat=ci('lat'), iLng=ci('lng');
+  const iDate = ci('date'), iTech = ci('tech_id'), iStart = ci('start'),
+        iEnd  = ci('end'),  iClient = ci('client'), iLat = ci('lat'), iLng = ci('lng');
 
   const result = {};
-  for (let i=1; i<lines.length; i++) {
+  for (let i = 1; i < lines.length; i++) {
+    if (!lines[i].trim()) continue;
     const cols = parseCSVLine(lines[i]);
-    const date=cols[iDate]?.trim(), tid=cols[iTech]?.trim();
-    const start=cols[iStart]?.trim(), end=cols[iEnd]?.trim();
-    if (!date||!tid||!start||!end||!TECH[tid]) continue;
-    if (!result[date]) result[date]={};
-    if (!result[date][tid]) result[date][tid]=[];
-    const tech=TECH[tid];
+    const date  = (cols[iDate]  || '').trim();
+    const tid   = (cols[iTech]  || '').trim();
+    const start = (cols[iStart] || '').trim();
+    const end   = (cols[iEnd]   || '').trim();
+    if (!date || !tid || !start || !end || !TECH[tid]) continue;
+    if (!result[date]) result[date] = {};
+    if (!result[date][tid]) result[date][tid] = [];
+    const t = TECH[tid];
     result[date][tid].push({
-      s:start, e:end,
-      t:cols[iClient]||'Job',
-      a:cols[iAddr]||'',
-      lat:parseFloat(cols[iLat])||tech.home.lat,
-      lng:parseFloat(cols[iLng])||tech.home.lng,
+      s: start, e: end,
+      t: (cols[iClient] || 'Job').trim(),
+      lat: parseFloat(cols[iLat]) || t.home.lat,
+      lng: parseFloat(cols[iLng]) || t.home.lng,
     });
   }
   return result;
@@ -457,99 +442,105 @@ function parseWOSheet(text) {
 
 async function connectSheet() {
   const url = document.getElementById('surl').value.trim();
-  if (!url) return;
+  if (!url) { alert('Please enter the CSV URL'); return; }
   localStorage.setItem('rh_wo_url', url);
-  setSt('Connecting to Work Orders sheet...','load');
+  setSt('Connecting...', 'load');
   try {
-    woData = await loadWOs(url);
-    isLive=true; lastSync=new Date();
-    updateSyncUI(true); hideSt();
-    const today=new Date(); today.setHours(0,0,0,0);
-    renderSchedule(today,14,[]);
-    // Auto-refresh hourly
-    setInterval(async()=>{
-      try { woData=await loadWOs(url); lastSync=new Date(); updateSyncUI(true); } catch{}
-    }, 3600000);
+    woData  = await loadWOs(url);
+    isLive  = true;
+    lastSync = new Date();
+    updateSyncUI(true);
+    hideSt();
+    renderSchedule(getToday(), 14, []);
+    setInterval(async () => {
+      try { woData = await loadWOs(url); lastSync = new Date(); updateSyncUI(true); } catch(e) {}
+    }, CACHE_TTL);
   } catch(e) {
-    setSt('Cannot connect: '+e.message,'err');
-    setTimeout(hideSt,4000);
+    setSt('Cannot connect: ' + e.message, 'err');
+    setTimeout(hideSt, 5000);
   }
 }
 
 function updateSyncUI(live) {
-  document.getElementById('sdot').className='sdot'+(live?' live':'');
+  document.getElementById('sdot').className = 'sdot' + (live ? ' live' : '');
   document.getElementById('slbl').textContent = live
-    ? 'live · '+lastSync.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})
+    ? 'live \u00b7 ' + lastSync.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
     : 'availability only';
-  const b=document.getElementById('dbadge');
-  b.className='dbadge '+(live?'live':'demo');
-  b.textContent = live?'live':'demo';
+  const b = document.getElementById('dbadge');
+  b.className = 'dbadge ' + (live ? 'live' : 'demo');
+  b.textContent = live ? 'live' : 'demo';
 }
 
-// ═══════════════════════════════════════════════════════════════
-// GET TECH HOURS FOR A GIVEN DAY
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
+// TECH HOURS FOR A DATE
+// ================================================================
 function getTechHours(tid, dateStr) {
-  const av = availData[dateStr]?.[tid];
-  if (av !== undefined) return av; // null means OFF per sheet
-  // Fallback to default (no sheet data)
+  if (availData[dateStr] && availData[dateStr][tid] !== undefined) {
+    return availData[dateStr][tid]; // null = OFF per sheet
+  }
   const t = TECH[tid];
-  return {start:t.defStart, end:t.defEnd};
+  return {start: t.defStart, end: t.defEnd};
 }
 
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
+// HAVERSINE DISTANCE
+// ================================================================
+function hav(la1, ln1, la2, ln2) {
+  const R = 3959, r = Math.PI / 180;
+  const dLa = (la2 - la1) * r, dLn = (ln2 - ln1) * r;
+  const a = Math.sin(dLa/2)**2 + Math.cos(la1*r) * Math.cos(la2*r) * Math.sin(dLn/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+// ================================================================
 // SLOT ALGORITHM
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 function findSlots(clat, clng, jobHrs, days) {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const all = [];
+  const today  = getToday();
   const jobMin = jobHrs * 60;
+  const all    = [];
 
-  for (let d=0; d<days; d++) {
+  for (let d = 0; d < days; d++) {
     const date = addDays(today, d);
-    const dow  = date.getDay();
-    if (dow === 0) continue; // Sunday = off for everyone
-
-    const key = dStr(date);
+    const key  = dStr(date);
 
     for (const tid of TECH_IDS) {
       const hours = getTechHours(tid, key);
       if (!hours) continue; // OFF
 
       const wS = hours.start * 60;
-      const wE = hours.end   * 60; // last job must END by this
+      const wE = hours.end   * 60;
+      if (wE - wS < jobMin) continue;
 
-      // Booked jobs for this tech today
       const booked = (woData[key]?.[tid] || [])
         .slice()
-        .sort((a,b) => toMin(a.s)-toMin(b.s));
+        .sort((a, b) => toMin(a.s) - toMin(b.s));
 
-      // Check Vitalii job limit
+      // Vitalii job limit
       if (TECH[tid].maxJobs < 99 && booked.length >= TECH[tid].maxJobs) continue;
 
-      // Build timeline gaps
-      const gaps = [];
-      let cur = wS;
+      // Build gaps
+      let cur  = wS;
       let pLat = TECH[tid].home.lat, pLng = TECH[tid].home.lng;
+      const gaps = [];
 
       for (const j of booked) {
         const js = toMin(j.s);
-        if (js - cur >= jobMin) gaps.push({gS:cur,gE:js,pLat,pLng,nLat:j.lat,nLng:j.lng});
-        cur = toMin(j.e); pLat=j.lat; pLng=j.lng;
+        if (js - cur >= jobMin) gaps.push({gS:cur, gE:js, pLat, pLng, nLat:j.lat, nLng:j.lng});
+        cur  = toMin(j.e);
+        pLat = j.lat; pLng = j.lng;
       }
-      if (wE - cur >= jobMin) gaps.push({gS:cur,gE:wE,pLat,pLng,nLat:TECH[tid].home.lat,nLng:TECH[tid].home.lng});
+      if (wE - cur >= jobMin) gaps.push({gS:cur, gE:wE, pLat, pLng, nLat:TECH[tid].home.lat, nLng:TECH[tid].home.lng});
 
       for (const g of gaps) {
-        const dp = hav(g.pLat,g.pLng,clat,clng);
-        const dn = hav(clat,clng,g.nLat,g.nLng);
-        const travelMin = Math.round((dp/MPH)*60);
-        const needed = jobMin + travelMin;
+        const dp = hav(g.pLat, g.pLng, clat, clng);
+        const dn = hav(clat, clng, g.nLat, g.nLng);
+        const travelMin = Math.round((dp / MPH) * 60);
+        const needed    = jobMin + travelMin;
         if (g.gE - g.gS < needed) continue;
-
         const jStart = g.gS + travelMin;
         const jEnd   = jStart + jobMin;
         if (jEnd > wE) continue;
-
         all.push({
           tid, date, key,
           slotStart: toTime(jStart),
@@ -559,155 +550,218 @@ function findSlots(clat, clng, jobHrs, days) {
           distPrev:  +dp.toFixed(1),
           distNext:  +dn.toFixed(1),
           travelMin,
-          score: dp*0.65 + dn*0.35,
+          score: dp * 0.65 + dn * 0.35,
         });
       }
     }
   }
-  return all.sort((a,b)=>a.score-b.score).slice(0,8);
+  return all.sort((a, b) => a.score - b.score).slice(0, 8);
 }
 
-// ═══════════════════════════════════════════════════════════════
-// GEOCODING
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
+// ZIP ZONE CHECK
+// ================================================================
+function getZone(input) {
+  const zip = parseInt(input.trim().replace(/\D/g,'').slice(0,5));
+  if (!zip || zip < 10000) return null;
+  if (ZIP_NO.has(zip))    return {zone:'no',    zip};
+  if (ZIP_SERVE.has(zip)) return {zone:'serve',  zip};
+  if (ZIP_MAYBE.has(zip)) return {zone:'maybe',  zip};
+  return {zone:'unknown', zip};
+}
+
+function onAddrInput(val) {
+  const wrap = document.getElementById('zbadge-wrap');
+  const zip5 = val.replace(/\D/g,'').slice(0,5);
+  if (zip5.length < 5) { wrap.innerHTML = ''; return; }
+  const z = getZone(zip5);
+  if (!z) { wrap.innerHTML = ''; return; }
+  const labels = {
+    serve:   ['We serve this area', 'serve'],
+    no:      ['Outside service area', 'no'],
+    maybe:   ['Ask team leader', 'maybe'],
+    unknown: ['Verify with team', 'unknown'],
+  };
+  const [txt, cls] = labels[z.zone] || labels.unknown;
+  wrap.innerHTML = '<span class="zbadge ' + cls + '">' + txt + '</span>';
+}
+
+// ================================================================
+// GEOCODING (Nominatim)
+// ================================================================
 async function geocode(addr) {
-  const isZip = /^\d{5}$/.test(addr.trim());
-  const q = isZip ? `${addr.trim()}, Illinois, USA` : `${addr.trim()}, Illinois, USA`;
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1&addressdetails=1&countrycodes=us`;
-  const r = await fetch(url, {headers:{'Accept-Language':'en-US'}});
+  const q = /^\d{5}$/.test(addr.trim())
+    ? addr.trim() + ', Illinois, USA'
+    : addr.trim() + ', Illinois, USA';
+  const url = 'https://nominatim.openstreetmap.org/search?format=json&q='
+    + encodeURIComponent(q) + '&limit=1&addressdetails=1&countrycodes=us';
+  const r = await fetch(url, {headers: {'Accept-Language': 'en-US'}});
   const data = await r.json();
   if (!data.length) return null;
   const item = data[0];
-  const zip = item.address?.postcode?.split('-')[0];
-  return {lat:+item.lat, lng:+item.lon, zip:zip||null, display:item.display_name};
+  const zip  = (item.address?.postcode || '').split('-')[0];
+  return {lat: +item.lat, lng: +item.lon, zip: zip || null, display: item.display_name};
 }
 
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
+// STATUS
+// ================================================================
+function setSt(msg, type) {
+  const el = document.getElementById('mst');
+  el.className = 'st show ' + type;
+  el.innerHTML = type === 'load'
+    ? '<div class="spin"></div><span>' + msg + '</span>'
+    : '<span>' + msg + '</span>';
+}
+function hideSt() { document.getElementById('mst').className = 'st'; }
+
+// ================================================================
 // MAIN SEARCH
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 async function go() {
   const addr = document.getElementById('caddr').value.trim();
   const hrs  = +document.getElementById('dur').value;
   const days = +document.getElementById('rng').value;
-  if (!addr) { setSt('Please enter an address or ZIP code','err'); return; }
 
-  // ZIP zone check
+  if (!addr) { setSt('Please enter an address or ZIP code', 'err'); return; }
+
+  // Quick ZIP check before geocoding
   const zip5 = addr.replace(/\D/g,'').slice(0,5);
-  if (zip5.length===5) {
+  if (zip5.length === 5) {
     const z = getZone(zip5);
-    if (z?.zone==='no') {
-      setSt('&#10060; This area is outside our service zone','err');
-      document.getElementById('goBtn').disabled=false;
+    if (z?.zone === 'no') {
+      setSt('Outside service area for ZIP ' + zip5, 'err');
       return;
     }
   }
 
   const btn = document.getElementById('goBtn');
   btn.disabled = true;
-  setSt('Geocoding address...','load');
-  document.getElementById('rBody').innerHTML='';
-  document.getElementById('rcnt').textContent='';
+  setSt('Geocoding address...', 'load');
+  document.getElementById('rBody').innerHTML = '';
+  document.getElementById('rcnt').textContent = '';
 
   let geo;
-  try { geo = await geocode(addr); }
-  catch(e) { geo=null; }
+  try { geo = await geocode(addr); } catch(e) { geo = null; }
 
-  if (!geo) { setSt('Address not found. Try full address with city or just the ZIP.','err'); btn.disabled=false; return; }
+  if (!geo) {
+    setSt('Address not found. Try a full address with city, or just the ZIP code.', 'err');
+    btn.disabled = false;
+    return;
+  }
 
-  // Zone check on geocoded ZIP
+  // Zone check on geocoded result
   if (geo.zip) {
     const z = getZone(geo.zip);
-    if (z?.zone==='no') {
-      setSt(`&#10060; ZIP ${geo.zip} is outside our service zone`,'err');
-      btn.disabled=false; return;
+    if (z?.zone === 'no') {
+      setSt('ZIP ' + geo.zip + ' is outside our service area', 'err');
+      btn.disabled = false;
+      return;
     }
-    if (z?.zone==='maybe') {
-      setSt(`&#9888; ZIP ${geo.zip} — please check with team leader before booking`,'ok');
+    if (z?.zone === 'maybe') {
+      setSt('ZIP ' + geo.zip + ' — check with team leader before booking', 'warn');
     } else {
       hideSt();
     }
-  } else { hideSt(); }
+  } else {
+    hideSt();
+  }
 
-  btn.disabled=false;
+  btn.disabled = false;
+
   const slots = findSlots(geo.lat, geo.lng, hrs, days);
-  document.getElementById('rcnt').textContent = slots.length ? `${slots.length} found` : 'none found';
+  document.getElementById('rcnt').textContent = slots.length ? slots.length + ' found' : 'none found';
   renderResults(slots, geo);
-  const today=new Date(); today.setHours(0,0,0,0);
-  renderSchedule(today, days, slots);
+  renderSchedule(getToday(), days, slots);
 }
 
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 // RENDER RESULTS
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 function renderResults(slots, geo) {
   const body = document.getElementById('rBody');
   if (!slots.length) {
-    body.innerHTML='<div class="empty"><div class="ico">😕</div><p>No available slots found.<br>Try extending the date range or reducing duration.</p></div>';
+    body.innerHTML = '<div class="empty"><div class="eico">&#128533;</div><p>No available slots found.<br>Try extending the date range or reducing duration.</p></div>';
     return;
   }
-  const name = document.getElementById('cname').value || 'TBD';
-  body.innerHTML = '<div class="slots">' + slots.map((s,i) => {
-    const t = TECH[s.tid];
-    const top = i===0;
-    const copy = `Client: ${name} | Tech: ${t.name} | ${fmtDate(s.date)} ${s.slotStart}–${s.slotEnd} | ${s.distPrev} mi from prev stop | ~${s.travelMin} min drive`;
-    return `<div class="slot ${top?'top':''}">
-      ${top?'<div class="best-badge">Best match</div>':''}
-      <div class="slot-row1">
-        <div class="tdot" style="background:${t.color}"></div>
-        <span class="tname2">${t.name}</span>
-      </div>
-      <div class="slot-date">&#128197; ${fmtDate(s.date)}</div>
-      <div class="slot-time">🕐 ${s.slotStart} – ${s.slotEnd} &nbsp;·&nbsp; window: ${s.gapStart}–${s.gapEnd}</div>
-      <div class="slot-meta">
-        <span class="sbadge">&#128205; ${s.distPrev} mi to client</span>
-        <span class="sbadge">🚗 ~${s.travelMin} min</span>
-        <span class="sbadge">↩ ${s.distNext} mi to next</span>
-      </div>
-      <button class="cbtn" id="cp${i}" onclick="copySlot(this,'${copy.replace(/'/g,"\\'")}')">&#128203; Copy appointment details</button>
-    </div>`;
-  }).join('') + '</div>';
+  const clientName = document.getElementById('cname').value.trim() || 'TBD';
+  body.innerHTML = '<div class="slots">'
+    + slots.map((s, i) => {
+        const t   = TECH[s.tid];
+        const top = i === 0;
+        const copyText = 'Client: ' + clientName + ' | Tech: ' + t.name + ' | '
+          + fmtDate(s.date) + ' ' + s.slotStart + '-' + s.slotEnd
+          + ' | ' + s.distPrev + ' mi from prev | ~' + s.travelMin + ' min drive';
+        return '<div class="slot ' + (top ? 'top' : '') + '">'
+          + (top ? '<div class="best-badge">Best match</div>' : '')
+          + '<div class="slot-r1"><div class="tdot" style="background:' + t.color + '"></div>'
+          + '<span class="tname2">' + t.name + '</span></div>'
+          + '<div class="slot-date">&#128197; ' + fmtDate(s.date) + '</div>'
+          + '<div class="slot-time">&#128336; ' + s.slotStart + ' &ndash; ' + s.slotEnd
+          + ' &nbsp;&middot;&nbsp; window: ' + s.gapStart + '&ndash;' + s.gapEnd + '</div>'
+          + '<div class="slot-meta">'
+          + '<span class="sbadge">' + s.distPrev + ' mi to client</span>'
+          + '<span class="sbadge">~' + s.travelMin + ' min drive</span>'
+          + '<span class="sbadge">' + s.distNext + ' mi to next</span>'
+          + '</div>'
+          + '<button class="cbtn" id="cp' + i + '" onclick="copySlot(this,\'' + copyText.replace(/'/g,"\\'") + '\')">Copy appointment details</button>'
+          + '</div>';
+      }).join('')
+    + '</div>';
 }
 
 function copySlot(btn, txt) {
   navigator.clipboard.writeText(txt).then(() => {
-    btn.innerHTML='&#9989; Copied!'; btn.classList.add('ok');
-    setTimeout(()=>{btn.innerHTML='&#128203; Copy appointment details';btn.classList.remove('ok')},2000);
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy appointment details'; btn.classList.remove('copied'); }, 2000);
   });
 }
 
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 // RENDER SCHEDULE GRID
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 function renderSchedule(today, days, highlights) {
-  const body = document.getElementById('sBody');
-  const dates = Array.from({length:days},(_,i)=>addDays(today,i));
-  const tds   = dStr(today);
-  const hlSet = new Set(highlights.map(h=>`${h.key}_${h.tid}`));
-  let html = '';
+  const body   = document.getElementById('sBody');
+  const dates  = Array.from({length: days}, (_, i) => addDays(today, i));
+  const tds    = dStr(today);
+  const hlSet  = new Set(highlights.map(h => h.key + '_' + h.tid));
+  let html     = '';
 
-  for (let w=0; w<Math.ceil(days/7); w++) {
-    const week = dates.slice(w*7, w*7+7);
-    const lbl  = w===0 ? 'This week' : 'Week of '+week[0].toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    html += `<div class="wlbl">${lbl}</div><div class="sgrid">`;
+  for (let w = 0; w < Math.ceil(days / 7); w++) {
+    const week = dates.slice(w * 7, w * 7 + 7);
+    const lbl  = w === 0
+      ? 'This week'
+      : 'Week of ' + week[0].toLocaleDateString('en-US', {month:'short', day:'numeric'});
+
+    html += '<div class="wlbl">' + lbl + '</div><div class="sgrid">';
 
     for (const date of week) {
-      const key=dStr(date), dow=date.getDay(), isT=key===tds, isOff=dow===0;
-      html += `<div class="dcol"><div class="dhdr ${isT?'th':''}">${dayName(date)}</div><div class="dnum ${isT?'tn':''}">${date.getDate()}</div>`;
-      if (isOff) {
-        html += '<div class="offchip">Off</div>';
-      } else {
-        for (const tid of TECH_IDS) {
-          const t = TECH[tid];
-          const hours = getTechHours(tid, key);
-          const jobs  = woData[key]?.[tid]||[];
-          const isHl  = hlSet.has(`${key}_${tid}`);
-          if (!hours) {
-            html += `<div class="offchip" title="${t.name}: OFF">${t.init}</div>`;
-          } else if (jobs.length) {
-            jobs.forEach(j => html += `<div class="jchip${isHl?' hl':''}" style="background:${t.bg};color:${t.color};border:1px solid ${t.color}22;${isHl?'outline:2px solid #f59e0b;outline-offset:-1px;':''}" title="${t.name}: ${j.t} ${j.s}–${j.e}">${t.init} ${j.s}</div>`);
-          } else {
-            html += `<div class="freechip" title="${t.name}: free">${t.init}</div>`;
+      const key = dStr(date);
+      const isT = key === tds;
+
+      html += '<div class="dcol">'
+        + '<div class="dhdr' + (isT ? ' th' : '') + '">' + dayAbbr(date) + '</div>'
+        + '<div class="dnum' + (isT ? ' tn' : '') + '">' + date.getDate() + '</div>';
+
+      for (const tid of TECH_IDS) {
+        const t     = TECH[tid];
+        const hours = getTechHours(tid, key);
+        const jobs  = woData[key]?.[tid] || [];
+        const isHl  = hlSet.has(key + '_' + tid);
+
+        if (!hours) {
+          html += '<div class="offchip" title="' + t.name + ': OFF">' + t.init + '</div>';
+        } else if (jobs.length) {
+          for (const j of jobs) {
+            html += '<div class="jchip' + (isHl ? '" style="outline:2px solid #f59e0b;outline-offset:-1px;' : '"')
+              + ' style="background:' + t.bg + ';color:' + t.color + ';border:1px solid ' + t.color + '22'
+              + (isHl ? ';outline:2px solid #f59e0b;outline-offset:-1px' : '') + '"'
+              + ' title="' + t.name + ': ' + j.t + ' ' + toTime(toMin(j.s)) + '-' + toTime(toMin(j.e)) + '">'
+              + t.init + ' ' + toTime(toMin(j.s)) + '</div>';
           }
+        } else {
+          html += '<div class="freechip" title="' + t.name + ': free">' + t.init + '</div>';
         }
       }
       html += '</div>';
@@ -716,62 +770,69 @@ function renderSchedule(today, days, highlights) {
   }
 
   // Legend
-  html += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">'
-    + TECH_IDS.map(id=>`<span style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted)"><span style="width:9px;height:9px;border-radius:2px;background:${TECH[id].bg};border:1px solid ${TECH[id].color};display:inline-block"></span>${TECH[id].init}=${TECH[id].name.split(' ')[0]}</span>`).join('')
+  html += '<div class="leg">'
+    + TECH_IDS.map(id =>
+        '<span class="leg-item"><span class="leg-dot" style="background:' + TECH[id].bg + ';border:1px solid ' + TECH[id].color + '"></span>'
+        + TECH[id].init + '=' + TECH[id].name.split(' ')[0] + '</span>'
+      ).join('')
     + '</div>';
 
   body.innerHTML = html;
 }
 
-// ═══════════════════════════════════════════════════════════════
-// STATUS HELPERS
-// ═══════════════════════════════════════════════════════════════
-function setSt(msg,type) {
-  const el=document.getElementById('mst');
-  el.className='st show '+type;
-  el.innerHTML = type==='load'?`<div class="spin"></div><span>${msg}</span>`:`<span>${msg}</span>`;
-}
-function hideSt() { document.getElementById('mst').className='st'; }
+// ================================================================
+// DATE UTILS
+// ================================================================
+function getToday() { const d = new Date(); d.setHours(0,0,0,0); return d; }
+function dStr(d) { return d.toISOString().split('T')[0]; }
+function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
+function dayAbbr(d) { return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]; }
+function fmtDate(d) { return d.toLocaleDateString('en-US', {weekday:'short', month:'short', day:'numeric'}); }
 
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 // INIT
-// ═══════════════════════════════════════════════════════════════
+// ================================================================
 async function init() {
   // Render tech list
   document.getElementById('techList').innerHTML = TECH_IDS.map(id => {
-    const t=TECH[id];
-    const hrs = t.defStart===14 ? '2pm–7pm (part-time)' : `${t.defStart}am–${t.defEnd===17?'5':t.defEnd===18?'6':'7'}pm`;
-    return `<div class="titem">
-      <div class="tav" style="background:${t.bg};color:${t.color}">${t.init}</div>
-      <div class="tinfo">
-        <div class="tname">${t.name}</div>
-        <div class="thome">&#127968; ${t.home.label}</div>
-        <div class="thours">&#9200; ${hrs}</div>
-      </div>
-    </div>`;
+    const t   = TECH[id];
+    const hrs = t.defStart === 14
+      ? '2pm&ndash;7pm (part-time, max 3 jobs)'
+      : toTime(t.defStart * 60) + '&ndash;' + toTime(t.defEnd * 60);
+    return '<div class="titem">'
+      + '<div class="tav" style="background:' + t.bg + ';color:' + t.color + '">' + t.init + '</div>'
+      + '<div class="tinfo">'
+      + '<div class="tname">' + t.name + '</div>'
+      + '<div class="thome">&#127968; ' + t.home.label + '</div>'
+      + '<div class="thours">&#9200; ' + hrs + '</div>'
+      + '</div></div>';
   }).join('');
 
   // Load availability sheet
-  document.getElementById('sdot').className='sdot';
+  document.getElementById('sdot').className = 'sdot';
   document.getElementById('slbl').textContent = 'loading schedule...';
 
   const ok = await loadAvailability();
-  document.getElementById('slbl').textContent = ok ? 'availability loaded' : 'availability unavailable';
+  document.getElementById('slbl').textContent = ok
+    ? 'schedule loaded'
+    : 'schedule unavailable';
 
-  // Render initial schedule
-  const today=new Date(); today.setHours(0,0,0,0);
-  renderSchedule(today, 14, []);
+  // Render initial grid
+  renderSchedule(getToday(), 14, []);
 
-  // Restore WO sheet if saved
-  const savedUrl = localStorage.getItem('rh_wo_url')||'';
+  // Restore WO sheet connection
+  const savedUrl = localStorage.getItem('rh_wo_url') || '';
   if (savedUrl) {
     document.getElementById('surl').value = savedUrl;
     try {
-      woData = await loadWOs(savedUrl);
-      isLive=true; lastSync=new Date();
+      woData   = await loadWOs(savedUrl);
+      isLive   = true;
+      lastSync = new Date();
       updateSyncUI(true);
-      renderSchedule(today,14,[]);
-      setInterval(async()=>{ try{woData=await loadWOs(savedUrl);lastSync=new Date();updateSyncUI(true);}catch{}},3600000);
+      renderSchedule(getToday(), 14, []);
+      setInterval(async () => {
+        try { woData = await loadWOs(savedUrl); lastSync = new Date(); updateSyncUI(true); } catch(e) {}
+      }, CACHE_TTL);
     } catch(e) {
       updateSyncUI(false);
     }
@@ -779,11 +840,11 @@ async function init() {
     updateSyncUI(false);
   }
 
-  // Refresh availability every hour
-  setInterval(async()=>{
-    localStorage.removeItem(AVAIL_CACHE_KEY);
+  // Refresh availability hourly
+  setInterval(async () => {
+    try { localStorage.removeItem(CACHE_KEY); } catch(e) {}
     await loadAvailability();
-  }, 3600000);
+  }, CACHE_TTL);
 }
 
 document.addEventListener('DOMContentLoaded', init);

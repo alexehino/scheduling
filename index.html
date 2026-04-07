@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -13,7 +13,7 @@
   --red:#e24b4a;--red-l:#fcebeb;--amber:#BA7517;--amber-l:#faeeda;
   --shadow:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
 }
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:16px;min-height:100vh}
 
 /* HEADER */
 .hdr{background:#18181a;color:#fff;height:54px;padding:0 20px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100}
@@ -97,15 +97,15 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 /* SCHEDULE GRID */
 .wlbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--faint);margin:14px 0 7px}
 .wlbl:first-child{margin-top:0}
-.sgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+.sgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
 .dcol{min-width:0}
-.dhdr{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;text-align:center;color:var(--faint);margin-bottom:3px}
+.dhdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;text-align:center;color:var(--faint);margin-bottom:3px}
 .dhdr.th{color:var(--green)}
-.dnum{font-size:11px;font-weight:600;text-align:center;padding:3px;border-radius:5px;margin-bottom:4px;color:var(--muted)}
+.dnum{font-size:13px;font-weight:600;text-align:center;padding:3px;border-radius:5px;margin-bottom:4px;color:var(--muted)}
 .dnum.tn{background:var(--green);color:#fff}
-.jchip{border-radius:4px;padding:2px 4px;font-size:8.5px;line-height:1.3;margin-bottom:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.offchip{border-radius:4px;padding:2px 4px;font-size:8.5px;background:var(--bg);color:var(--faint);text-align:center;margin-bottom:2px}
-.freechip{border-radius:4px;padding:2px 4px;font-size:8.5px;border:1px dashed var(--green-m);color:var(--green);text-align:center;margin-bottom:2px}
+.jchip{border-radius:4px;padding:3px 6px;font-size:11px;line-height:1.3;margin-bottom:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.offchip{border-radius:4px;padding:3px 6px;font-size:11px;background:var(--bg);color:var(--faint);text-align:center;margin-bottom:2px}
+.freechip{border-radius:4px;padding:3px 6px;font-size:11px;border:1px dashed var(--green-m);color:var(--green);text-align:center;margin-bottom:2px}
 
 /* CONFIG */
 details.cfg{border-top:1px solid var(--border)}
@@ -137,7 +137,7 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
 
   <div class="card">
     <div class="card-hdr">
-      <div class="card-ico" style="background:#ebf3ff">📍</div>
+      <div class="card-ico" style="background:#ebf3ff">&#128205;</div>
       <h2>New client</h2>
       <span class="dbadge demo" id="dbadge">demo</span>
     </div>
@@ -171,24 +171,24 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
           <option value="3">Next 3 days</option>
         </select>
       </div>
-      <button class="btn" id="goBtn" onclick="go()">🔍 Find available slots</button>
+      <button class="btn" id="goBtn" onclick="go()">&#128269; Find available slots</button>
     </div>
     <details class="cfg" id="cfgSection">
-      <summary>⚙ Connect to Work Orders sheet</summary>
+      <summary>&#9881; Connect to Work Orders sheet</summary>
       <div class="inner">
         <input id="surl" placeholder="https://docs.google.com/spreadsheets/d/.../export?format=csv&gid=0">
         <div class="hint2">
           Paste the public CSV URL from your Zapier Google Sheet.<br>
           Required columns: <b>wo_id · date · tech_id · start · end · client · address · lat · lng</b>
         </div>
-        <button class="cbtn2" onclick="connectSheet()">🔗 Connect & Sync</button>
+        <button class="cbtn2" onclick="connectSheet()">&#128279; Connect &amp; Sync</button>
       </div>
     </details>
   </div>
 
   <div class="card">
     <div class="card-hdr">
-      <div class="card-ico" style="background:var(--green-l)">👥</div>
+      <div class="card-ico" style="background:var(--green-l)">&#128101;</div>
       <h2>Technicians</h2>
     </div>
     <div class="card-body">
@@ -201,17 +201,17 @@ details.cfg .cbtn2{margin-top:8px;padding:6px 14px;background:var(--green);color
 
   <div class="card">
     <div class="card-hdr">
-      <div class="card-ico" style="background:#fff8e1">⚡</div>
+      <div class="card-ico" style="background:#fff8e1">&#9889;</div>
       <h2>Recommendations <span id="rcnt" style="font-size:11px;font-weight:400;color:var(--faint)"></span></h2>
     </div>
     <div class="card-body" id="rBody">
-      <div class="empty"><div class="ico">🗓</div><p>Enter a client address above<br>to see available slots</p></div>
+      <div class="empty"><div class="ico">&#128467;</div><p>Enter a client address above<br>to see available slots</p></div>
     </div>
   </div>
 
   <div class="card">
     <div class="card-hdr">
-      <div class="card-ico" style="background:#eeedfe">📅</div>
+      <div class="card-ico" style="background:#eeedfe">&#128197;</div>
       <h2>2-Week Schedule</h2>
     </div>
     <div class="card-body" id="sBody"></div>
@@ -259,7 +259,12 @@ let lastSync  = null;
 // UTILS
 // ═══════════════════════════════════════════════════════════════
 const toMin = t => { const [h,m] = t.split(':').map(Number); return h*60+(m||0); };
-const toTime = m => `${Math.floor(m/60)}:${String(m%60).padStart(2,'0')}`;
+const toTime = m => {
+    const h = Math.floor(m/60), mn = m%60;
+    const ampm = h >= 12 ? 'pm' : 'am';
+    const h12 = h % 12 || 12;
+    return mn === 0 ? `${h12}${ampm}` : `${h12}:${String(mn).padStart(2,'0')}${ampm}`;
+  };
 const dStr   = d => d.toISOString().split('T')[0];
 const addDays= (d,n) => { const r=new Date(d); r.setDate(r.getDate()+n); return r; };
 const fmtDate= d => d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
@@ -327,10 +332,10 @@ function checkZip(val) {
   const r = getZone(zip5);
   if (!r) { zb.innerHTML=''; return; }
   const labels = {
-    serve:   ['✅ We serve this area', 'serve'],
-    no:      ['❌ Outside service area', 'no-serve'],
-    maybe:   ['⚠️ Ask team leader', 'maybe'],
-    unknown: ['❓ Unknown — verify with team', 'unknown'],
+    serve:   ['&#9989; We serve this area', 'serve'],
+    no:      ['&#10060; Outside service area', 'no-serve'],
+    maybe:   ['&#9888; Ask team leader', 'maybe'],
+    unknown: ['&#10067; Unknown — verify with team', 'unknown'],
   };
   const [txt,cls] = labels[r.zone] || labels.unknown;
   zb.innerHTML = `<span class="zone-badge ${cls}">${txt}</span>`;
@@ -591,7 +596,7 @@ async function go() {
   if (zip5.length===5) {
     const z = getZone(zip5);
     if (z?.zone==='no') {
-      setSt('❌ This area is outside our service zone','err');
+      setSt('&#10060; This area is outside our service zone','err');
       document.getElementById('goBtn').disabled=false;
       return;
     }
@@ -613,11 +618,11 @@ async function go() {
   if (geo.zip) {
     const z = getZone(geo.zip);
     if (z?.zone==='no') {
-      setSt(`❌ ZIP ${geo.zip} is outside our service zone`,'err');
+      setSt(`&#10060; ZIP ${geo.zip} is outside our service zone`,'err');
       btn.disabled=false; return;
     }
     if (z?.zone==='maybe') {
-      setSt(`⚠️ ZIP ${geo.zip} — please check with team leader before booking`,'ok');
+      setSt(`&#9888; ZIP ${geo.zip} — please check with team leader before booking`,'ok');
     } else {
       hideSt();
     }
@@ -651,22 +656,22 @@ function renderResults(slots, geo) {
         <div class="tdot" style="background:${t.color}"></div>
         <span class="tname2">${t.name}</span>
       </div>
-      <div class="slot-date">📅 ${fmtDate(s.date)}</div>
+      <div class="slot-date">&#128197; ${fmtDate(s.date)}</div>
       <div class="slot-time">🕐 ${s.slotStart} – ${s.slotEnd} &nbsp;·&nbsp; window: ${s.gapStart}–${s.gapEnd}</div>
       <div class="slot-meta">
-        <span class="sbadge">📍 ${s.distPrev} mi to client</span>
+        <span class="sbadge">&#128205; ${s.distPrev} mi to client</span>
         <span class="sbadge">🚗 ~${s.travelMin} min</span>
         <span class="sbadge">↩ ${s.distNext} mi to next</span>
       </div>
-      <button class="cbtn" id="cp${i}" onclick="copySlot(this,'${copy.replace(/'/g,"\\'")}')">📋 Copy appointment details</button>
+      <button class="cbtn" id="cp${i}" onclick="copySlot(this,'${copy.replace(/'/g,"\\'")}')">&#128203; Copy appointment details</button>
     </div>`;
   }).join('') + '</div>';
 }
 
 function copySlot(btn, txt) {
   navigator.clipboard.writeText(txt).then(() => {
-    btn.textContent='✅ Copied!'; btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent='📋 Copy appointment details';btn.classList.remove('ok')},2000);
+    btn.innerHTML='&#9989; Copied!'; btn.classList.add('ok');
+    setTimeout(()=>{btn.innerHTML='&#128203; Copy appointment details';btn.classList.remove('ok')},2000);
   });
 }
 
@@ -740,8 +745,8 @@ async function init() {
       <div class="tav" style="background:${t.bg};color:${t.color}">${t.init}</div>
       <div class="tinfo">
         <div class="tname">${t.name}</div>
-        <div class="thome">🏠 ${t.home.label}</div>
-        <div class="thours">⏰ ${hrs}</div>
+        <div class="thome">&#127968; ${t.home.label}</div>
+        <div class="thours">&#9200; ${hrs}</div>
       </div>
     </div>`;
   }).join('');

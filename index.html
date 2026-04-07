@@ -318,8 +318,9 @@ function toMin(t) {
 }
 
 function toTime(totalMin) {
-  const h = Math.floor(totalMin / 60);
-  const m = totalMin % 60;
+  const rounded = Math.round(totalMin / 30) * 30;
+  const h = Math.floor(rounded / 60);
+  const m = rounded % 60;
   const ampm = h >= 12 ? 'pm' : 'am';
   const h12  = h % 12 || 12;
   return m === 0 ? h12 + ampm : h12 + ':' + String(m).padStart(2,'0') + ampm;

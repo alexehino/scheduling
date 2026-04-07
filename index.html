@@ -132,6 +132,16 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
     <div class="sdot" id="sdot"></div>
     <span id="slbl">loading...</span>
   </div>
+  <div style="margin-left:24px;display:flex;gap:2px">
+    <button id="tab-rhino" onclick="switchTab('rhino')"
+      style="padding:6px 16px;border:none;border-radius:7px;font-size:13px;font-weight:500;font-family:DM Sans,sans-serif;cursor:pointer;background:#fff;color:#18181a">
+      Rhino — IL
+    </button>
+    <button id="tab-aclean" onclick="switchTab('aclean')"
+      style="padding:6px 16px;border:none;border-radius:7px;font-size:13px;font-weight:500;font-family:DM Sans,sans-serif;cursor:pointer;background:transparent;color:#aaa">
+      Aclean — NC
+    </button>
+  </div>
 </div>
 
 <div class="wrap">
@@ -225,6 +235,39 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
   </div>
 
 </div>
+</div>
+
+<div id="aclean-tab" style="display:none;max-width:1400px;margin:0 auto;padding:16px">
+  <div style="background:#fff;border-radius:12px;border:1px solid #dddcd5;padding:40px;text-align:center;margin-bottom:16px">
+    <div style="width:56px;height:56px;background:#185FA5;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;margin:0 auto 16px;letter-spacing:-1px">AC</div>
+    <h2 style="font-family:DM Sans,sans-serif;font-size:20px;font-weight:600;margin-bottom:8px">Aclean — North Carolina</h2>
+    <p style="font-family:DM Sans,sans-serif;font-size:14px;color:#888;margin-bottom:24px">Scheduling tool — coming soon</p>
+    <div style="display:inline-flex;align-items:center;gap:8px;background:#e6f1fb;color:#185FA5;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:500;font-family:DM Sans,sans-serif">
+      &#9881; Under construction — technicians and schedule will be added here
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+    <div style="background:#fff;border-radius:12px;border:1px solid #dddcd5;padding:24px">
+      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px">What will be here</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;color:#444;font-family:DM Sans,sans-serif">
+        <span>&#10003; Technician roster (NC team)</span>
+        <span>&#10003; NC service area ZIP codes</span>
+        <span>&#10003; Schedule from Markate NC</span>
+        <span>&#10003; Smart slot recommendations</span>
+        <span style="color:#bbb">&#9711; Zapier integration (pending)</span>
+        <span style="color:#bbb">&#9711; Availability sheet (pending)</span>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:12px;border:1px solid #dddcd5;padding:24px">
+      <div style="font-size:12px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px">NC office info</div>
+      <div style="font-size:14px;color:#444;font-family:DM Sans,sans-serif;line-height:1.8">
+        <div>Company: <b>Aclean Steamers</b></div>
+        <div>Region: North Carolina</div>
+        <div style="margin-top:12px;font-size:12px;color:#bbb">Add NC details here when ready</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -887,6 +930,28 @@ document.addEventListener('DOMContentLoaded', init);
     });
   }
 })();
+
+function switchTab(tab) {
+  const wrap = document.querySelector('.wrap');
+  const aclean = document.getElementById('aclean-tab');
+  const btnR = document.getElementById('tab-rhino');
+  const btnA = document.getElementById('tab-aclean');
+  if (tab === 'aclean') {
+    wrap.style.display = 'none';
+    aclean.style.display = 'block';
+    btnA.style.background = '#fff';
+    btnA.style.color = '#18181a';
+    btnR.style.background = 'transparent';
+    btnR.style.color = '#aaa';
+  } else {
+    wrap.style.display = 'grid';
+    aclean.style.display = 'none';
+    btnR.style.background = '#fff';
+    btnR.style.color = '#18181a';
+    btnA.style.background = 'transparent';
+    btnA.style.color = '#aaa';
+  }
+}
 </script>
 </body>
 </html>

@@ -577,7 +577,8 @@ function findSlots(clat, clng, jobHrs, days) {
       if (TECH[tid].maxJobs < 99 && booked.length >= TECH[tid].maxJobs) continue;
 
       // Build gaps
-      let cur  = wS;
+      const nowMin = getNowMin();
+      let cur  = (d === 0) ? Math.max(wS, nowMin) : wS;
       let pLat = TECH[tid].home.lat, pLng = TECH[tid].home.lng;
       const gaps = [];
 
@@ -861,6 +862,10 @@ function renderSchedule(today, days, highlights) {
 // DATE UTILS
 // ================================================================
 function getToday() { const d = new Date(); d.setHours(0,0,0,0); return d; }
+function getNowMin() {
+  const now = new Date();
+  return now.getHours() * 60 + now.getMinutes() + 30;
+}
 function dStr(d) { return d.toISOString().split('T')[0]; }
 function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
 function dayAbbr(d) { return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][d.getDay()]; }

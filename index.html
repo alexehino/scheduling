@@ -175,11 +175,11 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
       </div>
       <div class="fr">
         <label>Date range</label>
-        <select id="rng">
-          <option value="14" selected>Next 2 weeks</option>
-          <option value="7">Next 7 days</option>
-          <option value="3">Next 3 days</option>
-        </select>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="date" id="dateFrom" style="flex:1;padding:9px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:DM Sans,sans-serif;color:var(--text);background:var(--white);outline:none">
+          <span style="color:var(--muted);font-size:13px">to</span>
+          <input type="date" id="dateTo" style="flex:1;padding:9px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:DM Sans,sans-serif;color:var(--text);background:var(--white);outline:none">
+        </div>
       </div>
       <button class="btn" id="goBtn" onclick="go()">Search available slots</button>
     </div>
@@ -553,7 +553,8 @@ function hav(la1, ln1, la2, ln2) {
 // SLOT ALGORITHM
 // ================================================================
 function findSlots(clat, clng, jobHrs, days) {
-  const today  = getToday();
+  const fromDateEl = document.getElementById('dateFrom');
+  const today = fromDateEl && fromDateEl.value ? new Date(fromDateEl.value + 'T00:00:00') : getToday();
   const jobMin = jobHrs * 60;
   const all    = [];
 
@@ -679,7 +680,11 @@ function hideSt() { document.getElementById('mst').className = 'st'; }
 async function go() {
   const addr = document.getElementById('caddr').value.trim();
   const hrs  = +document.getElementById('dur').value;
-  const days = +document.getElementById('rng').value;
+  const fromDate = new Date(document.getElementById('dateFrom').value);
+  const toDate = new Date(document.getElementById('dateTo').value);
+  fromDate.setHours(0,0,0,0);
+  toDate.setHours(0,0,0,0);
+  const days = Math.round((toDate - fromDate) / (1000*60*60*24)) + 1;
 
   if (!addr) { setSt('Please enter an address or ZIP code', 'err'); return; }
 
@@ -927,6 +932,12 @@ async function init() {
     try { localStorage.removeItem(CACHE_KEY); } catch(e) {}
     await loadAvailability();
   }, CACHE_TTL);
+
+  const today = new Date();
+  const twoWeeks = new Date();
+  twoWeeks.setDate(today.getDate() + 14);
+  document.getElementById('dateFrom').value = today.toISOString().split('T')[0];
+  document.getElementById('dateTo').value = twoWeeks.toISOString().split('T')[0];
 }
 
 document.addEventListener('DOMContentLoaded', init);

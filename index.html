@@ -105,6 +105,23 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
 </head>
 <body>
 
+<div id="lock" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#18181a;display:flex;align-items:center;justify-content:center;z-index:9999">
+  <div style="background:#fff;border-radius:16px;padding:40px;width:340px;text-align:center">
+    <div style="width:48px;height:48px;background:#1D9E75;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;margin:0 auto 20px;letter-spacing:-1px">RS</div>
+    <h2 style="font-family:DM Sans,sans-serif;font-size:18px;font-weight:600;margin-bottom:6px">Rhino Service</h2>
+    <p style="font-family:DM Sans,sans-serif;font-size:13px;color:#888;margin-bottom:24px">Scheduling Tool</p>
+    <input id="pwd-input" type="password" placeholder="Enter password"
+      style="width:100%;padding:11px 14px;border:1.5px solid #ddd;border-radius:9px;font-size:14px;font-family:DM Sans,sans-serif;outline:none;margin-bottom:10px"
+      onkeydown="if(event.key==='Enter')checkPwd()">
+    <div id="pwd-err" style="font-size:12px;color:#e24b4a;margin-bottom:10px;display:none">Wrong password</div>
+    <button onclick="checkPwd()"
+      style="width:100%;padding:11px;background:#1D9E75;color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:600;font-family:DM Sans,sans-serif;cursor:pointer">
+      Sign in
+    </button>
+  </div>
+</div>
+
+
 <div class="hdr">
   <div class="hdr-logo">RS</div>
   <div>
@@ -848,6 +865,28 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+(function(){
+  const PASS = 'rhino2026';
+  const KEY  = 'rh_auth';
+  function checkPwd() {
+    const val = document.getElementById('pwd-input').value;
+    if (val === PASS) {
+      sessionStorage.setItem(KEY, '1');
+      document.getElementById('lock').style.display = 'none';
+    } else {
+      document.getElementById('pwd-err').style.display = 'block';
+      document.getElementById('pwd-input').value = '';
+      document.getElementById('pwd-input').focus();
+    }
+  }
+  window.checkPwd = checkPwd;
+  if (sessionStorage.getItem(KEY) === '1') {
+    document.addEventListener('DOMContentLoaded', function(){
+      document.getElementById('lock').style.display = 'none';
+    });
+  }
+})();
 </script>
 </body>
 </html>

@@ -766,7 +766,7 @@ function renderResults(slots, geo) {
           + '<span class="sbadge">~' + s.travelMin + ' min drive</span>'
           + '<span class="sbadge">' + s.distNext + ' mi to next</span>'
           + '</div>'
-          + '<button class="cbtn" id="cp' + i + '" onclick="copySlot(this,\'' + copyText.replace(/'/g,"\\'") + '\')">Copy appointment details</button>'
+          + '<button class="cbtn" id="cp' + i + '" onclick="copySlot(this,\'' + copyText.replace(/'/g,"\\'") + '\')">Copy for client</button>'
           + '</div>';
       }).join('')
     + '</div>';
@@ -776,7 +776,7 @@ function copySlot(btn, txt) {
   navigator.clipboard.writeText(txt).then(() => {
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = 'Copy appointment details'; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => { btn.textContent = 'Copy for client'; btn.classList.remove('copied'); }, 2000);
   });
 }
 

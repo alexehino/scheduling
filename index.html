@@ -612,7 +612,7 @@ function findSlots(clat, clng, jobHrs, days) {
       }
     }
   }
-  return all.sort((a, b) => a.score - b.score).slice(0, 8);
+  return all.sort((a, b) => a.score - b.score).slice(0, 10);
 }
 
 // ================================================================
@@ -741,17 +741,18 @@ function renderResults(slots, geo) {
     body.innerHTML = '<div class="empty"><div class="eico">&#128533;</div><p>No available slots found.<br>Try extending the date range or reducing duration.</p></div>';
     return;
   }
-  const clientName = document.getElementById('cname').value.trim() || 'TBD';
-  window._top3Slots = slots.slice(0,3).map(s => ({date: fmtDate(s.date), start: s.slotStart, end: s.slotEnd}));
+  var topColors = ['var(--green)', '#185FA5', 'var(--amber)'];
+  window._top3Slots = slots.slice(0,3).map(function(s) { return {date: fmtDate(s.date), start: s.slotStart, end: s.slotEnd}; });
   body.innerHTML = '<button class="btn" style="margin-bottom:14px" onclick="copyAllTop3(this)">\uD83D\uDCCB Copy top 3 for client</button><div class="slots">'
-    + slots.map((s, i) => {
-        const t   = TECH[s.tid];
-        const top = i === 0;
-        const copyText = 'Client: ' + clientName + ' | Tech: ' + t.name + ' | '
-          + fmtDate(s.date) + ' ' + s.slotStart + '-' + s.slotEnd
-          + ' | ' + s.distPrev + ' mi from prev | ~' + s.travelMin + ' min drive';
-        return '<div class="slot ' + (top ? 'top' : '') + '">'
-          + (top ? '<div class="best-badge">Best match</div>' : '')
+    + slots.map(function(s, i) {
+        var t = TECH[s.tid];
+        var isTop3 = i < 3;
+        var borderColor = isTop3 ? topColors[i] : 'var(--border)';
+        var badge = i === 0 ? '<div class="best-badge">Best match</div>' : (i === 1 ? '<div class="best-badge" style="background:#185FA5">#2</div>' : (i === 2 ? '<div class="best-badge" style="background:var(--amber)">#3</div>' : ''));
+        var slotCopy = '\u23F0 ' + fmtDate(s.date) + '  \u231A ' + s.slotStart + ' \u2014 ' + s.slotEnd;
+        var fullCopy = 'Tech: ' + t.name + ' | ' + fmtDate(s.date) + ' ' + s.slotStart + '-' + s.slotEnd + ' | ' + s.distPrev + ' mi from prev | ~' + s.travelMin + ' min drive';
+        return '<div class="slot" style="border-color:' + borderColor + (isTop3 ? ';background:' + borderColor + '08' : '') + '">'
+          + badge
           + '<div class="slot-r1"><div class="tdot" style="background:' + t.color + '"></div>'
           + '<span class="tname2">' + t.name + '</span></div>'
           + '<div class="slot-date">&#128197; ' + fmtDate(s.date) + '</div>'
@@ -762,7 +763,10 @@ function renderResults(slots, geo) {
           + '<span class="sbadge">~' + s.travelMin + ' min drive</span>'
           + '<span class="sbadge">' + s.distNext + ' mi to next</span>'
           + '</div>'
-          + '<button class="cbtn" id="cp' + i + '" onclick="copySlot(this,\'' + copyText.replace(/'/g,"\\'") + '\')">Copy for client</button>'
+          + '<div style="display:flex;gap:6px;margin-top:9px">'
+          + '<button class="cbtn" style="flex:1;background:var(--green)" onclick="copySlot(this,\'' + slotCopy.replace(/'/g,"\\'") + '\')">Copy this slot</button>'
+          + '<button class="cbtn" style="flex:1" onclick="copySlot(this,\'' + fullCopy.replace(/'/g,"\\'") + '\')">Copy for client</button>'
+          + '</div>'
           + '</div>';
       }).join('')
     + '</div>';

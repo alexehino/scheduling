@@ -745,7 +745,8 @@ function renderResults(slots, geo) {
     return;
   }
   const clientName = document.getElementById('cname').value.trim() || 'TBD';
-  body.innerHTML = '<div class="slots">'
+  window._top3Slots = slots.slice(0,3).map(s => ({date: fmtDate(s.date), start: s.slotStart, end: s.slotEnd}));
+  body.innerHTML = '<button class="btn" style="margin-bottom:14px" onclick="copyAllTop3(this)">\uD83D\uDCCB Copy top 3 for client</button><div class="slots">'
     + slots.map((s, i) => {
         const t   = TECH[s.tid];
         const top = i === 0;
@@ -765,7 +766,6 @@ function renderResults(slots, geo) {
           + '<span class="sbadge">' + s.distNext + ' mi to next</span>'
           + '</div>'
           + '<button class="cbtn" id="cp' + i + '" onclick="copySlot(this,\'' + copyText.replace(/'/g,"\\'") + '\')">Copy appointment details</button>'
-          + '<button class="cbtn" style="margin-top:4px;background:var(--green)" onclick="copySimple(this,\'' + fmtDate(s.date) + '\',\'' + s.slotStart + '\',\'' + s.slotEnd + '\')">\uD83D\uDCCB Copy for client</button>'
           + '</div>';
       }).join('')
     + '</div>';
@@ -779,12 +779,18 @@ function copySlot(btn, txt) {
   });
 }
 
-function copySimple(btn, date, start, end) {
-  const txt = '\uD83D\uDDD3\uFE0F Available slots for you:\n\n\u23F0 ' + date + '\n\u231A ' + start + ' \u2014 ' + end + '\n\nLooking forward to seeing you! \uD83D\uDE0A';
-  navigator.clipboard.writeText(txt).then(() => {
+function copyAllTop3(btn) {
+  const slots = window._top3Slots;
+  if (!slots || !slots.length) return;
+  const lines = ['\uD83D\uDDD3\uFE0F Available slots for you:\n'];
+  slots.forEach((s, i) => {
+    lines.push((i+1) + '. \u23F0 ' + s.date + '  \u231A ' + s.start + ' \u2014 ' + s.end);
+  });
+  lines.push('\nLooking forward to seeing you! \uD83D\uDE0A');
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '\uD83D\uDCCB Copy for client'; btn.classList.remove('copied'); }, 2000);
+    setTimeout(() => { btn.textContent = '\uD83D\uDCCB Copy top 3 for client'; btn.classList.remove('copied'); }, 2000);
   });
 }
 

@@ -283,8 +283,8 @@ function parseHours(str) {
   if (!m) return null;
   const toH = (n,ap) => { n=parseInt(n); if(ap==='pm'&&n!==12)n+=12; if(ap==='am'&&n===12)n=0; return n; };
   const endAP = m[4];
-  const startAP = m[2] || (toH(m[3],endAP) < toH(m[1],endAP) ? endAP : m[4]);
-  return { start: toH(m[1], startAP||endAP), end: toH(m[3], endAP) };
+  const startAP = m[2] || endAP;
+  return { start: toH(m[1], startAP), end: toH(m[3], endAP) };
 }
 
 function parseSheetDate(str) {

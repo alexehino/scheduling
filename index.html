@@ -765,6 +765,7 @@ function renderResults(slots, geo) {
           + '<span class="sbadge">' + s.distNext + ' mi to next</span>'
           + '</div>'
           + '<button class="cbtn" id="cp' + i + '" onclick="copySlot(this,\'' + copyText.replace(/'/g,"\\'") + '\')">Copy appointment details</button>'
+          + '<button class="cbtn" style="margin-top:4px;background:var(--green)" onclick="copySimple(this,\'' + fmtDate(s.date) + '\',\'' + s.slotStart + '\',\'' + s.slotEnd + '\')">\uD83D\uDCCB Copy for client</button>'
           + '</div>';
       }).join('')
     + '</div>';
@@ -775,6 +776,15 @@ function copySlot(btn, txt) {
     btn.textContent = 'Copied!';
     btn.classList.add('copied');
     setTimeout(() => { btn.textContent = 'Copy appointment details'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+function copySimple(btn, date, start, end) {
+  const txt = '\uD83D\uDDD3\uFE0F Available slots for you:\n\n\u23F0 ' + date + '\n\u231A ' + start + ' \u2014 ' + end + '\n\nLooking forward to seeing you! \uD83D\uDE0A';
+  navigator.clipboard.writeText(txt).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '\uD83D\uDCCB Copy for client'; btn.classList.remove('copied'); }, 2000);
   });
 }
 

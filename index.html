@@ -141,6 +141,10 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
       style="padding:6px 16px;border:none;border-radius:7px;font-size:13px;font-weight:500;font-family:DM Sans,sans-serif;cursor:pointer;background:transparent;color:#aaa">
       Aclean — NC
     </button>
+    <button id="tab-help" onclick="switchTab('help')"
+      style="padding:6px 16px;border:none;border-radius:7px;font-size:13px;font-weight:500;font-family:DM Sans,sans-serif;cursor:pointer;background:transparent;color:#aaa">
+      How it works
+    </button>
   </div>
 </div>
 
@@ -263,6 +267,75 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
         <div style="margin-top:12px;font-size:12px;color:#bbb">Add NC details here when ready</div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="help-tab" style="display:none;max-width:900px;margin:0 auto;padding:16px;font-family:DM Sans,sans-serif">
+
+  <div style="background:#fff;border-radius:12px;border:1px solid #dddcd5;padding:28px;margin-bottom:14px">
+    <div style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:16px">How the algorithm works</div>
+
+    <div style="display:flex;flex-direction:column;gap:20px">
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">1</div>
+        <div>
+          <div style="font-size:15px;font-weight:500;margin-bottom:4px">Daily schedule is loaded</div>
+          <div style="font-size:13px;color:#6b6a65;line-height:1.6">Each technician has working hours set in Google Sheets (e.g. 8am&#8211;7pm or OFF). The tool reads this every hour. Jobs already booked in Markate are synced via Zapier into a separate sheet and loaded automatically.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">2</div>
+        <div>
+          <div style="font-size:15px;font-weight:500;margin-bottom:4px">Free windows are calculated</div>
+          <div style="font-size:13px;color:#6b6a65;line-height:1.6">For each technician, the algorithm finds gaps between existing jobs. For example: working 8am&#8211;7pm with jobs at 9&#8211;11am and 2&#8211;4pm leaves two free windows: 11am&#8211;2pm and 4&#8211;7pm.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">3</div>
+        <div>
+          <div style="font-size:15px;font-weight:500;margin-bottom:4px">Travel time is added</div>
+          <div style="font-size:13px;color:#6b6a65;line-height:1.6">The tool calculates drive time from the previous job (or technician home) to the new client using straight-line distance &#247; 25 mph average city speed. The slot starts after travel time and must end within working hours.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">4</div>
+        <div>
+          <div style="font-size:15px;font-weight:500;margin-bottom:4px">Results are ranked by route efficiency</div>
+          <div style="font-size:13px;color:#6b6a65;line-height:1.6">Each slot gets a score: <b>65%</b> distance from previous stop to client + <b>35%</b> distance from client to next stop. The lowest score = most efficient route = shown first. Best match means the client fits naturally between two existing jobs.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+
+    <div style="background:#fff;border-radius:12px;border:1px solid #dddcd5;padding:20px">
+      <div style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px">Special rules</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#444;line-height:1.6">
+        <div>&#10003; Vitalii only works <b>2pm&#8211;7pm</b>, max 3 jobs/day</div>
+        <div>&#10003; Vladyslav ends at <b>5pm</b></div>
+        <div>&#10003; Eugene starts at <b>10am</b></div>
+        <div>&#10003; Sundays &#8212; everyone is off by default</div>
+        <div>&#10003; Today &#8212; past time slots are hidden</div>
+        <div>&#10003; Times are rounded to nearest 30 min</div>
+      </div>
+    </div>
+
+    <div style="background:#fff;border-radius:12px;border:1px solid #dddcd5;padding:20px">
+      <div style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px">Data sources</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:#444;line-height:1.6">
+        <div>&#10003; <b>Availability sheet</b> &#8212; Google Sheets (published CSV)</div>
+        <div>&#10003; <b>Work orders</b> &#8212; Zapier from Markate</div>
+        <div>&#10003; <b>Geocoding</b> &#8212; OpenStreetMap Nominatim</div>
+        <div>&#10003; <b>ZIP zones</b> &#8212; hardcoded serve/no-serve/maybe lists</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -967,22 +1040,26 @@ document.addEventListener('DOMContentLoaded', init);
 function switchTab(tab) {
   const wrap = document.querySelector('.wrap');
   const aclean = document.getElementById('aclean-tab');
+  const help = document.getElementById('help-tab');
   const btnR = document.getElementById('tab-rhino');
   const btnA = document.getElementById('tab-aclean');
+  const btnH = document.getElementById('tab-help');
+  var btns = [btnR, btnA, btnH];
+  var panels = [wrap, aclean, help];
+  btns.forEach(function(b) { b.style.background = 'transparent'; b.style.color = '#aaa'; });
+  panels.forEach(function(p) { p.style.display = 'none'; });
   if (tab === 'aclean') {
-    wrap.style.display = 'none';
     aclean.style.display = 'block';
     btnA.style.background = '#fff';
     btnA.style.color = '#18181a';
-    btnR.style.background = 'transparent';
-    btnR.style.color = '#aaa';
+  } else if (tab === 'help') {
+    help.style.display = 'block';
+    btnH.style.background = '#fff';
+    btnH.style.color = '#18181a';
   } else {
     wrap.style.display = 'grid';
-    aclean.style.display = 'none';
     btnR.style.background = '#fff';
     btnR.style.color = '#18181a';
-    btnA.style.background = 'transparent';
-    btnA.style.color = '#aaa';
   }
 }
 </script>

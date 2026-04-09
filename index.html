@@ -273,7 +273,13 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
 <div id="help-tab" style="display:none;max-width:900px;margin:0 auto;padding:16px;font-family:DM Sans,sans-serif">
 
   <div style="background:#fff;border-radius:12px;border:1px solid #dddcd5;padding:28px;margin-bottom:14px">
-    <div style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px;margin-bottom:16px">How the algorithm works</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:.6px">How the algorithm works</div>
+      <div style="display:flex;gap:6px">
+        <button id="lang-en" onclick="setLang('en')" style="padding:4px 12px;border:1.5px solid #1D9E75;border-radius:7px;font-size:12px;font-family:DM Sans,sans-serif;background:#1D9E75;color:#fff;cursor:pointer">EN</button>
+        <button id="lang-ua" onclick="setLang('ua')" style="padding:4px 12px;border:1.5px solid #dddcd5;border-radius:7px;font-size:12px;font-family:DM Sans,sans-serif;background:#fff;color:#888;cursor:pointer">UA</button>
+      </div>
+    </div>
 
     <div style="display:flex;flex-direction:column;gap:20px">
 
@@ -281,7 +287,7 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
         <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">1</div>
         <div>
           <div style="font-size:15px;font-weight:500;margin-bottom:4px">Daily schedule is loaded</div>
-          <div style="font-size:13px;color:#6b6a65;line-height:1.6">Each technician has working hours set in Google Sheets (e.g. 8am&#8211;7pm or OFF). The tool reads this every hour. Jobs already booked in Markate are synced via Zapier into a separate sheet and loaded automatically.</div>
+          <div class="lang-text" data-en="Each technician has working hours set in Google Sheets (e.g. 8am&#8211;7pm or OFF). The tool reads this every hour. Jobs already booked in Markate are synced via Zapier into a separate sheet and loaded automatically." data-ua="Кожен технік має робочі години в Google Sheets (наприклад 8am&#8211;7pm або OFF). Інструмент читає їх щогодини. Вже заброньовані роботи з Markate синхронізуються через Zapier в окрему таблицю автоматично." style="font-size:13px;color:#6b6a65;line-height:1.6">Each technician has working hours set in Google Sheets (e.g. 8am&#8211;7pm or OFF). The tool reads this every hour. Jobs already booked in Markate are synced via Zapier into a separate sheet and loaded automatically.</div>
         </div>
       </div>
 
@@ -289,7 +295,7 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
         <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">2</div>
         <div>
           <div style="font-size:15px;font-weight:500;margin-bottom:4px">Free windows are calculated</div>
-          <div style="font-size:13px;color:#6b6a65;line-height:1.6">For each technician, the algorithm finds gaps between existing jobs. For example: working 8am&#8211;7pm with jobs at 9&#8211;11am and 2&#8211;4pm leaves two free windows: 11am&#8211;2pm and 4&#8211;7pm.</div>
+          <div class="lang-text" data-en="For each technician, the algorithm finds gaps between existing jobs. For example: working 8am&#8211;7pm with jobs at 9&#8211;11am and 2&#8211;4pm leaves two free windows: 11am&#8211;2pm and 4&#8211;7pm." data-ua="Для кожного техніка алгоритм знаходить вільні вікна між існуючими роботами. Наприклад: робочий день 8am&#8211;7pm з роботами 9&#8211;11am та 2&#8211;4pm дає два вільних вікна: 11am&#8211;2pm та 4&#8211;7pm." style="font-size:13px;color:#6b6a65;line-height:1.6">For each technician, the algorithm finds gaps between existing jobs. For example: working 8am&#8211;7pm with jobs at 9&#8211;11am and 2&#8211;4pm leaves two free windows: 11am&#8211;2pm and 4&#8211;7pm.</div>
         </div>
       </div>
 
@@ -297,7 +303,7 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
         <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">3</div>
         <div>
           <div style="font-size:15px;font-weight:500;margin-bottom:4px">Travel time is added</div>
-          <div style="font-size:13px;color:#6b6a65;line-height:1.6">The tool calculates drive time from the previous job (or technician home) to the new client using straight-line distance &#247; 25 mph average city speed. The slot starts after travel time and must end within working hours.</div>
+          <div class="lang-text" data-en="The tool calculates drive time from the previous job (or technician home) to the new client using straight-line distance &#247; 25 mph average city speed. The slot starts after travel time and must end within working hours." data-ua="Інструмент рахує час у дорозі від попередньої роботи (або дому техніка) до нового клієнта: відстань &#247; 25 миль/год середня швидкість у місті. Слот починається після дороги і має закінчитись в межах робочого часу." style="font-size:13px;color:#6b6a65;line-height:1.6">The tool calculates drive time from the previous job (or technician home) to the new client using straight-line distance &#247; 25 mph average city speed. The slot starts after travel time and must end within working hours.</div>
         </div>
       </div>
 
@@ -305,7 +311,7 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
         <div style="width:32px;height:32px;border-radius:50%;background:#18181a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0">4</div>
         <div>
           <div style="font-size:15px;font-weight:500;margin-bottom:4px">Results are ranked by route efficiency</div>
-          <div style="font-size:13px;color:#6b6a65;line-height:1.6">Each slot gets a score: <b>65%</b> distance from previous stop to client + <b>35%</b> distance from client to next stop. The lowest score = most efficient route = shown first. Best match means the client fits naturally between two existing jobs.</div>
+          <div class="lang-text" data-en="Each slot gets a score: <b>65%</b> distance from previous stop to client + <b>35%</b> distance from client to next stop. The lowest score = most efficient route = shown first. Best match means the client fits naturally between two existing jobs." data-ua="Кожен слот отримує оцінку: <b>65%</b> відстань від попередньої точки до клієнта + <b>35%</b> від клієнта до наступної. Найменша оцінка = найефективніший маршрут = показується першим. Best match означає що клієнт вписується між двома існуючими роботами." style="font-size:13px;color:#6b6a65;line-height:1.6">Each slot gets a score: <b>65%</b> distance from previous stop to client + <b>35%</b> distance from client to next stop. The lowest score = most efficient route = shown first. Best match means the client fits naturally between two existing jobs.</div>
         </div>
       </div>
 
@@ -320,7 +326,7 @@ details.cfg .cfg-btn:hover{background:var(--green-d)}
         <div>&#10003; Vitalii only works <b>2pm&#8211;7pm</b>, max 3 jobs/day</div>
         <div>&#10003; Vladyslav ends at <b>5pm</b></div>
         <div>&#10003; Eugene starts at <b>10am</b></div>
-        <div>&#10003; Sundays &#8212; everyone is off by default</div>
+        <div>&#10003; Days off &#8212; controlled per technician in Google Sheets. No hardcoded days off.</div>
         <div>&#10003; Today &#8212; past time slots are hidden</div>
         <div>&#10003; Times are rounded to nearest 30 min</div>
       </div>
@@ -1036,6 +1042,18 @@ document.addEventListener('DOMContentLoaded', init);
     });
   }
 })();
+
+function setLang(lang) {
+  document.querySelectorAll('.lang-text').forEach(el => {
+    el.innerHTML = el.dataset[lang] || el.dataset.en;
+  });
+  document.getElementById('lang-en').style.background = lang==='en' ? '#1D9E75' : '#fff';
+  document.getElementById('lang-en').style.color = lang==='en' ? '#fff' : '#888';
+  document.getElementById('lang-en').style.borderColor = lang==='en' ? '#1D9E75' : '#dddcd5';
+  document.getElementById('lang-ua').style.background = lang==='ua' ? '#1D9E75' : '#fff';
+  document.getElementById('lang-ua').style.color = lang==='ua' ? '#fff' : '#888';
+  document.getElementById('lang-ua').style.borderColor = lang==='ua' ? '#1D9E75' : '#dddcd5';
+}
 
 function switchTab(tab) {
   const wrap = document.querySelector('.wrap');

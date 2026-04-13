@@ -800,6 +800,7 @@ async function go() {
       btn.disabled = false;
       return;
     }
+    if (geo.zip) onAddrInput(geo.zip);
     if (z?.zone === 'maybe') {
       setSt('ZIP ' + geo.zip + ' — check with team leader before booking', 'warn');
     } else {
